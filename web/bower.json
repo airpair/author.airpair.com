@@ -1,0 +1,10 @@
+{
+  "name": "consult.airpair.com",
+  "dependencies": {
+    "angular": "1.4.5",
+    "angular-load": "0.4.0",
+    "angular-route": "1.4.5",
+    "lodash": "3.10.1",
+    "jquery": "2.1.3"
+  }
+}

@@ -1,0 +1,4 @@
+#!/bin/sh
+rm -rf test/.lib;
+rm -rf shared/.lib;
+rm -rf server/.lib;

@@ -1,0 +1,6 @@
+#!/bin/sh
+cd web;
+bower install;
+cd ../;
+npm install;
+mkdir -p web/components;

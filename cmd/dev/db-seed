@@ -1,0 +1,2 @@
+#!/bin/sh
+mongorestore --drop --db author_dev ./test/data/bson

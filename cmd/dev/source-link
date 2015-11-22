@@ -1,0 +1,32 @@
+#!/bin/sh
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+mkdir -p test/.lib/scream;
+cd test/.lib/scream;
+for l in $(find . -type l); do unlink $l;done;
+for f in $(ls -d ../../../node_modules/meanair-scream/lib/*.js); do ln -nsf $f;done;
+printf "${CYAN}CMD: SCREAM source sym-linked under${NC} /test/server/.lib\n"
+cd ../../../
+mkdir -p shared/.lib;
+cd shared/.lib;
+for l in $(find . -type l); do unlink $l;done;
+for f in $(ls -d ../../node_modules/meanair-shared/lib/*.js);do ln -nsf $f;done;
+printf "${CYAN}CMD: Shared source sym-linked under${NC} /shared/.lib\n"
+cd ../../
+mkdir -p server/.lib/server;
+cd server/.lib/server;
+for l in $(find . -type l); do unlink $l;done;
+for f in $(ls -d ../../../node_modules/meanair-server/lib/*.js); do ln -nsf $f;done;
+mkdir -p ../middleware;
+cd ../middleware;
+for l in $(find . -type l); do unlink $l;done;
+for f in $(ls -d ../../../node_modules/meanair-server/node_modules/meanair-middleware/lib/*.js); do ln -nsf $f;done;
+mkdir -p ../model;
+cd ../model;
+for l in $(find . -type l); do unlink $l;done;
+for f in $(ls -d ../../../node_modules/meanair-model/lib/*.js); do ln -nsf $f;done;
+mkdir -p ../auth;
+cd ../auth;
+for l in $(find . -type l); do unlink $l;done;
+for f in $(ls -d ../../../node_modules/meanair-auth/lib/*/*.js); do ln -nsf $f;done;
+printf "${CYAN}CMD: server middleware model & auth source sym-linked under${NC} /server/.lib${NC}\n"

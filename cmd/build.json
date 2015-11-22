@@ -1,0 +1,54 @@
+{
+  "log": {
+    "config":                false,
+    "times":                 false,
+    "wire":                  false
+  },
+  "dirs": {
+    "web":                   "web",
+    "dev":                   "web/public/bundle",
+    "dist":                  "web/dist",
+    "server":                "server"
+  },
+  "clean": {
+    "dirs":                  ["dist","dev"]
+  },
+  "default":                 ["nodemon","watch"],
+  "dist":                    {},
+  "less": {
+    "src":                   "css",
+    "dest":                  "public/bundle/css",
+    "imports":               ["css"]
+  },
+  "nodemon": {
+    "dirs":                  ["server","server/.lib"],
+    "config": {
+      "restartable":         false,
+      "verbose":             true,
+      "ignore":              ["*DS_Store","web/*","test/*","cmd/*"],
+      "stdout":              true,
+      "stdin":               true,
+      "execMap":             { "js": "node --harmony_destructuring" },
+      "script":              "index.js",
+      "ext":                 "js json hbs"
+    }
+  },
+  "watch": {
+    "livereload":            { "port": 35729 },
+    "path": {
+      "livereload":          ["server/views/*",
+                              "web/public/bundle/css/*",
+                              "web/public/bundle/js/*"]
+    }
+  },
+  "browserify": {
+    "transforms": {
+      "ngAnnotate":          true,
+      "stringify":           [".html"],
+      "es6ify":              { "exclude": "components" }
+    },
+    "src":                   "web/js",
+    "dest":                  "public/bundle",
+    "entries":               ["bundle_ang1.js"]
+  }
+}

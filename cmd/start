@@ -1,0 +1,2 @@
+#!/bin/sh
+node --harmony-destructuring server/index.js
