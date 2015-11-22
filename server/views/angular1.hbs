@@ -1,0 +1,8 @@
+<div class="server-errors" server-errs></div>
+<main ng-view>
+  {{{body}}}
+</main>
+<script>
+  window.pageData = { session: {{{ json session }}} }
+</script>
+<script type="text/javascript" src="{{bundle.appJs}}"></script>

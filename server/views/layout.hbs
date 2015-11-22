@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="Author" ng-strict-di>
+<head>
+  <title>author.airpair</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="{{bundle.libsCss}}" type="text/css" />
+  <link rel="stylesheet" href="{{bundle.appCss}}" type="text/css" />
+  <base href="/" />
+</head>
+<body>
+
+<header>
+  <div>
+    <a href="/" tile="airpair.com pair programming" target="_self"></a>
+    <ul>
+      <li class="lb"><a href="/profile" target="_self">Library</a></li>
+      <li class="fk"><iframe src="https://ghbtns.com/github-btn.html?user=airpair&repo=author.airpair.com&type=fork&count=false" frameborder="0" scrolling="0"></iframe></li>
+    </ul>
+  </div>
+</header>
+
+<div class="main-wrap">
+  {{{body}}}
+</div>
+
+{{#if authenticated}}
+  <footer>
+    <ul>
+      <li><a href="/logout" class="logout" target="_self">Logout</a></li>
+      <li>&copy; 2016 airpair, inc.</li>
+    </ul>
+  </footer>
+{{/if}}
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "auth": {
+    "appKey":                  "athr",
+    "oauth": {
+      "github": {
+        "signup":              false,
+        "login":               true,
+        "logic":               "oauth",
+        "emails":              false,
+        "userAgent":           "undefined",
+        "scope":               ["public_repo"]
+      }
+    }
+  },
+  "http": {
+    "static": {
+      "bundle": {
+        "appCss":             "/css/bundle_ang1.css",
+        "appJs":              "/js/bundle_ang1.js",
+        "libsCss":            "/css/libs.css"
+      },
+      "dirs":                 "public,static"
+    }
+  },
+  "log": {
+    "model":                  false,
+    "auth":                   { "theme": { "link": "green" } }
+  },
+  "middleware": {
+    "session":                { "authedData": "_id name" },
+    "plugins":                ["res.slow","livereload"]
+  },
+  "model": {
+    "sessionStore":           { "collection": "sessions_author" }
+  }
+}

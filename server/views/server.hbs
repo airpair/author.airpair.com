@@ -1,0 +1,62 @@
+<main>
+  <section id="welcome">
+
+    {{#if warnings}}
+      <div class="alert alert-danger">{{#each warnings}}<p>{{this}}</p>{{/each}}</div>
+    {{/if}}
+
+    <div class="col main">
+
+      <h3>author.airpair.com</h3>
+
+      <section class="login">
+        <h2>Login</h2>
+
+        <p>To login to consult.airpair, <b>you first need an
+        airpair.com account</b> linked with your GitHub profile.
+        If you don't have that, no drama!
+        <a href="https://www.airpair.com/auth/github/callback">login to
+        airpair.com w GitHub</a> first.
+        </p>
+
+        <p>If you have logged into airpair.com with GitHub, you're ready:</p>
+
+        {{#if authenticated}}
+          <a href="/logout" target="_self">Logout</a>
+        {{else}}
+          <a href="/auth/github/callback" target="_self" class="btn gh gh-white">
+          Signin w GitHub</a>
+          <span class="info">We will require GitHub permissions to write to your public directories.</span>
+        {{/if}}
+      </section>
+
+
+    </div>
+
+    <div class="col side">
+      <h3>this.open_source = true</h3>
+
+      <p><em>author.airpair.com</em> is open source!</p>
+
+      <p>Fork and follow our dev milestones <a href="https://github.com/airpair/author.airpair.com" target="_blank">on GitHub</a>.</p>
+
+      <p>Both <em>author.airpair</em> and the framework it's built on are
+      brand new. Please let us know of bugs via the
+      <a href="https://github.com/airpair/author.airpair.com/issues" target="_blank">author.airpair repo issues page</a>.</p>
+
+      <p>Want to share your thoughts? Email them to team@airpair.com</p>
+
+      <h4>Get paid to contribute</h4>
+
+      <p>Wish you had a specific feature? We'll pay
+      any folks that build an "approved" feature and write about it on
+      <a href="https://www.airpair.com/software-experts">airpair blog</a>.</p>
+      <p>To propose an idea, fork this repo send a PR with
+      a markdown file containing your thoughts under:<code>/docs/features/proposed</code>
+      </p>
+
+    </div>
+
+  </section>
+
+</main>

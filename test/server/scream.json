@@ -1,0 +1,22 @@
+{
+  "specs":                "all",
+  "colors": {
+    "seed":               "magenta",
+    "spec":               "yellow",
+    "error":              "red",
+    "expectederr":        ["magenta","dim"]
+  },
+  "mongo": {
+    "collections":        ["users","tags","posts"],
+    "seed": {
+      "model":            "User",
+      "key":              "jky",
+      "timeout":          30000
+    },
+    "url":                "mongodb://localhost/author_test"
+  },
+  "paths": {
+    "fixtures":           "../data/fixtures",
+    "bson":               "../data/bson"
+  }
+}
