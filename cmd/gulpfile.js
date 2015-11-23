@@ -38,6 +38,10 @@ require('meanair-build')(gulp, cfg).configure({
     watch.path.less = cfg.less.imports
     watch.path.browserify = join(cfg.dirs.web, 'js', '**/*')
     watch.path.livereload = watch.path.livereload.map(path => join(rootDir, path))
+  },
+  dist: dist => {
+    dist.src = cfg.dirs.web
+    dist.dest = cfg.dirs.dist
   }
 }).run()
 

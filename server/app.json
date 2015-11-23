@@ -5,9 +5,10 @@
       "github": {
         "signup":              false,
         "login":               true,
-        "logic":               "oauth",
+        "unlink":              false,
         "emails":              false,
-        "userAgent":           "undefined",
+        "logic":               "oauth",
+        "userAgent":           "{{required}}",
         "scope":               ["public_repo"]
       }
     }
@@ -15,11 +16,11 @@
   "http": {
     "static": {
       "bundle": {
-        "appCss":             "/css/bundle_ang1.css",
-        "appJs":              "/js/bundle_ang1.js",
+        "appCss":             "/css/app.css",
+        "appJs":              "/js/ang1.js",
         "libsCss":            "/css/libs.css"
       },
-      "dirs":                 "public,static"
+      "dirs":                 "public,public/bundle"
     }
   },
   "log": {

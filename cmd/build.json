@@ -49,6 +49,6 @@
     },
     "src":                   "web/js",
     "dest":                  "public/bundle",
-    "entries":               ["bundle_ang1.js"]
+    "entries":               ["ang1.js"]
   }
 }
