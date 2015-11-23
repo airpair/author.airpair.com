@@ -1,0 +1,47 @@
+<section id="library" ng-if="library">
+
+<div class="col main">
+  <section id="setup">
+
+
+    <h3>Setup</h3>
+
+    <div ng-if="drafts && permissions" class="alert alert-success">
+      Looks like you're good for now. More features and instructions are on their way.
+    </div>
+
+    <section ng-if="!permissions" class="alert alert-warning">
+      <div>
+      <h4 style="font-family:courier">var firstUp = reauth() </h4>
+      <!-- <p>Click the <em>profile</em> menu link up top</p> -->
+      </div>
+    </section>
+
+    <section ng-if="drafts">
+      <h4>Drafts</h4>
+    </section>
+
+    <section ng-if="permissions">
+      <h4>Profile</h4>
+      <p ng-if="permissions" style="color:green">Look'in good.</p>
+    </section>
+
+  </section>
+
+</div>
+
+  <div class="col side">
+    <h3>News</h3>
+
+    <p><em>author.airpair</em> launched (on Nov 25).
+    </p>
+
+    <h3>Site guide</h3>
+
+    <p>Check out our <a href="https://github.com/airpair/author.airpair.com/blob/master/test/server/specs/flows.coffee" target="_blank">flows spec</a> for what's currently implemented and what you should do with this portal.</p>
+
+  </div>
+
+
+
+</section>

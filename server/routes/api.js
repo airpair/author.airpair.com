@@ -10,4 +10,10 @@ module.exports = (app, mw) => {
     .end('apiJson')
 
 
+  app.API('me')
+    .middleware('authd cachedTags')
+    .get ({ getLibrary:           ''})
+    .end()
+
+
 }

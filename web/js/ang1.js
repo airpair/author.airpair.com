@@ -12,6 +12,8 @@ require('./ang.v1/directives/_index.js')
 require('./ang.v1/services/_index.js')
 require('./ang.v1/util/filters.js')
 
+require('./library/module.js')
+
 angular.module("Author", [
 
   //-- External
@@ -23,7 +25,7 @@ angular.module("Author", [
   'AirPair.Services',
 
   //-- App modules (namespaces)
-  'Author.Library',
+  'Author.Library'
 
 ])
 
