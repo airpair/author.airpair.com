@@ -32,6 +32,9 @@
     "plugins":                ["res.slow","livereload"]
   },
   "model": {
-    "sessionStore":           { "collection": "sessions_author" }
+    "sessionStore":           { "collection": "sessions_author" },
+    "cache": {
+      "tags":                 { "getter": "tags.getForCache" }
+    }
   }
 }
