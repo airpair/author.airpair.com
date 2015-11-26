@@ -8,16 +8,10 @@ printf "${CYAN}CMD: Adding git hooks${NC}\n"
 source ./cmd/dev/setup-git-hooks;
 printf "${CYAN}CMD: Seeding development db${NC}\n"
 source ./cmd/dev/db-seed;
-printf "${CYAN}CMD: Symlink shared js${NC}\n"
-mkdir -p web/js/.lib/;
-cd web/js/.lib;
-for l in $(find . -type l); do unlink $l;done;
-for f in $(ls -d ../../../node_modules/meanair-shared/lib/*.js); do ln -nsf $f;done;
-cd ../../../;
 printf "${CYAN}CMD: Symlink default build cmd${NC}\n"
 mkdir -p cmd/build;
 cd cmd/build;
 for l in $(find . -type l); do unlink $l;done;
 for f in $(ls -d ../../node_modules/meanair-build/cmd/build/*); do ln -nsf $f;done;
-# printf "${CYAN}CMD: Building client Js and Css${NC}\n"
-# source ./cmd/build/dev;
+printf "${CYAN}CMD: Building client Js and Css${NC}\n"
+source ./cmd/build/dev;

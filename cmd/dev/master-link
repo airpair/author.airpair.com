@@ -2,28 +2,34 @@
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 printf "${CYAN}CMD: sym-linked meanair npm modules${NC} /node_modules\n"
+npm link meanair-scream
 npm link meanair-shared
 npm link meanair-model
+npm link meanair-build
 npm link meanair-server
 npm link meanair-auth
-npm link meanair-build
-npm link meanair-scream
+printf "${CYAN}CMD: Symlink shared js${NC}\n"
+mkdir -p web/js/.lib/meanair;
+cd web/js/.lib/meanair;
+for l in $(find . -type l); do unlink $l;done;
+for f in $(ls -d ../../../../node_modules/meanair-shared/lib/*.js); do ln -nsf $f;done;
+cd ../../../../;
 printf "${CYAN}CMD: source sym-linked js${NC} /web/js\n"
-mkdir -p web/js/ang.v1/directives;
-cd web/js/ang.v1/directives;
+mkdir -p web/js/.lib/ang.v1/directives;
+cd web/js/.lib/ang.v1/directives;
 for l in $(find . -type l); do unlink $l;done;
-for f in $(ls -d ../../../../../static/js/ang.v1/directives/*); do ln -nsf $f;done;
-cd ../../../../;
-mkdir -p web/js/ang.v1/services;
-cd web/js/ang.v1/services;
+for f in $(ls -d ../../../../../../static/js/ang.v1/directives/*); do ln -nsf $f;done;
+cd ../../../../../;
+mkdir -p web/js/.lib/ang.v1/services;
+cd web/js/.lib/ang.v1/services;
 for l in $(find . -type l); do unlink $l;done;
-for f in $(ls -d ../../../../../static/js/ang.v1/services/*); do ln -nsf $f;done;
-cd ../../../../;
-mkdir -p web/js/ang.v1/util;
-cd web/js/ang.v1/util;
+for f in $(ls -d ../../../../../../static/js/ang.v1/services/*); do ln -nsf $f;done;
+cd ../../../../../;
+mkdir -p web/js/.lib/ang.v1/util;
+cd web/js/.lib/ang.v1/util;
 for l in $(find . -type l); do unlink $l;done;
-for f in $(ls -d ../../../../../static/js/ang.v1/util/*); do ln -nsf $f;done;
-cd ../../../../;
+for f in $(ls -d ../../../../../../static/js/ang.v1/util/*); do ln -nsf $f;done;
+cd ../../../../../;
 mkdir -p web/css/components;
 cd web/css/components;
 for l in $(find . -type l); do unlink $l;done;
