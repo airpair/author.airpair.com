@@ -15,8 +15,13 @@
     },
     "url":                "mongodb://localhost/author_test"
   },
+  "stubs": {
+    "on":                 true,
+    "timeout":            10000
+  },
   "paths": {
+    "bson":               "../data/bson",
     "fixtures":           "../data/fixtures",
-    "bson":               "../data/bson"
+    "stories":            "./stories"
   }
 }
