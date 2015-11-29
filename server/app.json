@@ -7,7 +7,7 @@
         "login":               true,
         "unlink":              false,
         "emails":              false,
-        "logic":               "oauth",
+        "logic":               "loginAuthor",
         "userAgent":           "{{required}}",
         "scope":               ["public_repo"]
       }
@@ -25,7 +25,8 @@
   },
   "log": {
     "model":                  false,
-    "auth":                   { "theme": { "link": "green" } }
+    "auth":                   { "theme": { "link": "green" } },
+    "wrpr":                   { "theme": { "ghcall": "cyan" } }
   },
   "middleware": {
     "session":                { "authedData": "_id name" },
@@ -35,6 +36,12 @@
     "sessionStore":           { "collection": "sessions_author" },
     "cache": {
       "tags":                 { "getter": "tags.getForCache" }
+    }
+  },
+  "wrappers": {
+    "gitPublisher": {
+      "org":                  "{{required}}",
+      "retry":                { "delay": 1000, "max": 3 }
     }
   }
 }
