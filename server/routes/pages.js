@@ -15,11 +15,17 @@ module.exports = (app,mw) => {
     mw.$.serverPage)
 
   app.get(['/library',
-           '/drafts',
-           '/edit/*',
-           '/forks',
+           // '/drafts',
+           // '/in-review',
+           // '/published',
+           '/new',
+           '/editor/*',
+           '/post-details/*',
+           '/submit/*',
            '/preview/*',
-           '/published'],
+           // '/forked',
+           // '/reviewd',
+           ],
            mw.$.authd, mw.$.angular1Page)
 
 }

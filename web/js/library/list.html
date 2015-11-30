@@ -3,28 +3,34 @@
 <div class="col main">
   <section id="setup">
 
-
     <h3>Setup</h3>
-
+<!--
     <div ng-if="drafts && permissions" class="alert alert-success">
       Looks like you're good for now. More features and instructions are on their way.
-    </div>
+    </div> -->
 
-    <section ng-if="!permissions" class="alert alert-warning">
+    <section ng-if="drafts.length == 0 && mine == 0" class="alert alert-warning">
+      <h4>var firstUp = createDraft(yourFirstPost)</h4>
+      <p>Hit <a href="/new" target="_self">New post</a> in the top menu to create
+      draft.</p>
+    </section>
+    <section ng-if="mine > 0">
+      <h5>Drafts
+        <em>{{drafts.length}} in progress.</em> Why not start another?
+      </h5>
+    </section>
+
+    <section ng-if="!scopes" class="alert alert-warning">
       <div>
-      <h4 style="font-family:courier">var firstUp = reauth() </h4>
-      <!-- <p>Click the <em>profile</em> menu link up top</p> -->
+        <h4>var required = reauth_github('public_repo')</h4>
+        <p>Something's not quire right with your GitHub token.
+          A fresh token grating write permissions to your public repos is required.
+          <a href="/auth/github/callback"><b>OAuth with GitHub again now...</b></a>
+        </p>
       </div>
     </section>
 
-    <section ng-if="drafts">
-      <h4>Drafts</h4>
-    </section>
-
-    <section ng-if="permissions">
-      <h4>Profile</h4>
-      <p ng-if="permissions" style="color:green">Look'in good.</p>
-    </section>
+    <section ng-if="scopes"><h5>GitHub Permissions <em>Look'in good</em></h5></section>
 
   </section>
 

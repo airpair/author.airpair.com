@@ -14,7 +14,7 @@ module.exports = (app, mw) => {
 
 
   app.API('me')
-    .middleware('authd cachedTags')
+    .middleware('authd cachedTags populateMe')
     .get ({ getLibrary:           ''             })
     .end()
 

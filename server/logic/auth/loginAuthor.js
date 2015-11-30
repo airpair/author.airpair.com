@@ -28,7 +28,7 @@ module.exports = function(DAL, Data, Shared, Lib) {
 
 
     exec(provider, profile, tokens, done) {
-      DAL.User.getByQuery(Data.Query.existing.gh(profile), (e, existing) => {
+      DAL.User.getByQuery({'auth.gh.id':profile.id}, (e, existing) => {
         if (e) return done(e)
 
         var inValid = validate(this.user, existing, provider, profile, tokens)
