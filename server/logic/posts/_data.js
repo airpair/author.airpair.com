@@ -4,11 +4,11 @@ var toc                 = require('./lib/toc')()
 var PostsUtil           = require('../../../shared/posts')
 
 var views = {
-  edit:     '_id by title md', //github.repoInfo slug created published submitted tags assetUrl repo stats synced
-  details:  '_id by title tags assetUrl', // created published submitted
-  preview:  '_id by title tags assetUrl body references toc', // created published submitted
-  review:   '_id by title tags assetUrl body references toc review stats', // created published submitted
-  list:     '_id by.name title tags assetUrl stats'
+  edit:     '_id title tags assetUrl by.userId url submitted published updated md stats todo', //github.repoInfo slug created published submitted tags assetUrl repo stats synced
+  details:  '_id title tags assetUrl by', // created published submitted
+  preview:  '_id title tags assetUrl by body references toc', // created published submitted
+  review:   '_id title tags assetUrl by body references toc review stats', // created published submitted
+  list:     '_id title tags assetUrl by.name stats'
 }
 
 module.exports = new LogicDataHelper(views,
@@ -33,8 +33,11 @@ module.exports = new LogicDataHelper(views,
     details: r =>
       select.details(chain(r, 'url', inflate.tags)),
 
+    todo: r =>
+      Object.assign(r, { todo: { next: PostsUtil.todo(r)} }),
+
     edit: r =>
-      select.edit(assign(r, { md: {live:r.md,head:r.headMD} })),
+      select.edit(assign(chain(r,'url','stats','todo'), { md: {live:r.md,head:r.headMD} })),
 
     preview: r => {
       var {markdown,references} = PostsUtil.extractReferences(r.headMD)
@@ -70,7 +73,9 @@ module.exports = new LogicDataHelper(views,
         }
       }
 
-      if (r.md) stats.words = PostsUtil.wordcount(r.md)
+      if (r.md)
+        stats.words = PostsUtil.wordcount(r.md)
+
       // comments: reviews.length + _.flatten(_.pluck(reviews,'replies')||[]).length,
       // openPRs: _.where(post.pullRequests||[],(pr)=>pr.state=='open').length,  // not really correct at all grrr
       // closedPRs: _.where(post.pullRequests||[],(pr)=>pr.state=='closed').length,  // not really correct at all grrr

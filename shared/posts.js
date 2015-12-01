@@ -6,11 +6,28 @@ var shared = {
   },
 
 
-  wordcount(md) {
+  wordcount(md, mod) {
     var words = md.match(/\w+/g)
     words = words.filter(word => word.length>1)
-    if (!words)
-    return words.length
+    var count = words.length
+    return mod ? count-(count%mod) : count
+  },
+
+
+  previewable(post) {
+    return post.tags.length > 0 &&
+           post.assetUrl
+  },
+
+
+  todo(post) {
+    if (post.tags.length == 0) return 'tag'
+    if (!post.assetUrl) return 'asset'
+    if (!post.stats.words ||
+      post.stats.words < 400) return 'wordcount'
+    if (!post.submitted) return 'submit'
+    if (post.reviews.length < 3) return 'reviews'
+    if (post.stats.rating < 3.5) return 'rating'
   },
 
 

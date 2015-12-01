@@ -13,7 +13,13 @@ section#library {
     }
     .details {
       width:290px;padding-right:30px;
-      a { margin:1px 0 0 0;font-size:12px }
+      a {
+        display:block;
+        overflow-y:hidden;
+        margin:1px 0 0 0;font-size:12px;
+        height:18px;
+      }
+      time { display:block }
     }
     .status {
       width:100px;
@@ -21,7 +27,7 @@ section#library {
       label { display:block;color:@gray;font-weight:normal;font-size:10px;margin:0 }
     }
     .edit {
-      width:60px;
+      width:70px;
       text-align:right
     }
   }

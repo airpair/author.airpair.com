@@ -40,7 +40,12 @@
         <tbody>
           <tr ng-repeat="p in mine">
             <td class="details">
-              <a href="/activity/${p._id}" target="_self">{{ p.title }}</a>
+              <a ng-href="/activity/{{p._id}}" target="_self">{{ p.title }}</a>
+              <time>updated {{p.updated | timeAgo }}
+                 <i ng-if="p.meta.lastTouch">, {{p.meta.lastTouch.action}}d {{p.meta.lastTouch.utc | timeAgo }}
+                  by {{p.meta.lastTouch.by.name}}
+                 </i>
+              </time>
             </td>
             <td class="status">
               <span ng-if="!p.submitted && !p.published">
@@ -48,7 +53,7 @@
                 </a>
               </span>
               <span ng-if="p.submitted && !p.published">
-                <a href="/posts/review/{{p._id}}" target="_target">in review</a>
+                <a href="/posts/review/{{p._id}}" target="_target">submitted</a>
               </span>
               <span ng-if="p.published">
                 <a href="{{p.url}}" target="_target">published</a>
@@ -69,7 +74,7 @@
             </td>
             <td class="edit">
               <a ng-if="!p.submitted && !p.published" ng-click="delete(p._id)" title="delete" class="delete">Del</a>
-              <a href="/editor{{p._id}}" title="edit" class="edit">Edit</a>
+              <a href="/editor/{{p._id}}" title="edit" class="edit">Edit</a>
             </td>
           </tr>
         </tbody>

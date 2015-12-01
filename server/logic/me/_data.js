@@ -1,9 +1,9 @@
 var {TypesUtil} = require('meanair-shared')
 
 var views = {
-  library:      '_id title meta.lastTouch by md tags assetUrl submitted published updated forkers.userId reviews._id reviews.by reviews.questions.answer reviews.questions.key',
+  library:      '_id title meta.lastTouch by md tags assetUrl created submitted published updated forkers.userId reviews._id reviews.by reviews.questions.answer reviews.questions.key',
   recent:       '_id title meta.lastTouch by.name submitted published updated stats',
-  mine:         '_id title submitted published updated stats',
+  mine:         '_id title meta.lastTouch submitted published updated stats',
   contributing: '_id title by.name submitted published updated stats'
 }
 
@@ -41,9 +41,10 @@ module.exports = new LogicDataHelper(
       var drafts =     []
       var inreview =   []
       var published =  []
-      var mine = posts.filter(p => _.idsEqual(p.by.userId, userId))
+      var mine = _.sortBy(posts.filter(p => _.idsEqual(p.by.userId, userId)),r=>-1*r.updated)
       mine.forEach(p => {
         reviews = reviews.concat(chain(p,'reviews')||[])
+        if (!p.updated) p.updated = created
         if (p.published) published.push(p._id)
         else if (p.submitted) inreview.push(p._id)
         else drafts.push(p._id)

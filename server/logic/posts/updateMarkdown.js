@@ -11,7 +11,8 @@ module.exports = ({Post}, Data, {touchMeta}, {author,authorOrForker}) => ({
     if (!update.md || update.md == '')
       return `Post markdown edit fail. Markdown empty...`
 
-    if (original.submitted && !update.commitMessage || update.commitMessage == '')
+    if (original.submitted &&
+         (!update.commitMessage || update.commitMessage == ''))
       return `Commit Message required`
   },
 
