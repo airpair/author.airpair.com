@@ -1,10 +1,16 @@
 var shared = {
 
+
+  validSlug(slug) {
+    return /^[a-z0-9]+([a-z0-9\-\.]+)*$/.test(slug)
+  },
+
+
   wordcount(md) {
-    var s = md.replace(/(^\s*)|(\s*$)/gi,"");
-    s = s.replace(/[ ]{2,}/gi," ");
-    s = s.replace(/\n /,"\n");
-    return s.split(' ').length;
+    var words = md.match(/\w+/g)
+    words = words.filter(word => word.length>1)
+    if (!words)
+    return words.length
   },
 
 
@@ -38,6 +44,7 @@ var shared = {
 
     return { markdown, references }
   }
+
 
 }
 

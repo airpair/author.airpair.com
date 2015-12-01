@@ -23,21 +23,20 @@ angular.module("Author.Library", [])
 
 .controller('library:list', function($scope, $location, API) {
 
-  API('/me/library', lib => {
-    $scope.library =   lib
-    $scope.scopes =    lib.scopes
+  API('/me/library', r => {
+    $scope.library =   r
+    $scope.scopes =    r.scopes
 
-    $scope.newest =    lib.newest
+    $scope.reviews =   r.reviews
+    $scope.recent =    r.recent
 
-    $scope.drafts =    lib.drafts
-    $scope.inreview =  lib.inreview
-    $scope.published = lib.published
-    $scope.mine =      lib.drafts.length +
-                       lib.inreview.length +
-                       lib.published.length
+    $scope.mine =      r.mine
+    $scope.drafts =    r.drafts
+    $scope.inreview =  r.inreview
+    $scope.published = r.published
 
-    $scope.forked =    lib.forks
-    $scope.reviewed =  lib.reviewed
+    $scope.forked =    r.forked
+    $scope.reviewed =  r.reviewed
   })
 
 })

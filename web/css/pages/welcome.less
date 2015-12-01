@@ -1,12 +1,14 @@
 section#welcome {
-  img.flow { max-width:620px }
+  img.flow { max-width:620px;height:100px;margin:20px  }
 
   .login {
     a.btn {
       .gh-white;
-      width:280px;padding-left:60px;
+      width:300px;padding-left:60px;
       background-color:@orange;
       &:hover { background-color:@orangehighlight }
+      &+* { width:300px }
     }
+
   }
 }

@@ -1,8 +1,54 @@
 section#library {
+
+  #myposts {
+    h3 { .hNoStyle;
+      font-size:17px;
+      margin:30px 0px 11px 0px;
+    }
+
+    td { font-size:11px;padding:4px 5px;line-height:1.35 }
+    .social {
+      > div { margin-top:1px }
+      width:100px;font-size:10px
+    }
+    .details {
+      width:290px;padding-right:30px;
+      a { margin:1px 0 0 0;font-size:12px }
+    }
+    .status {
+      width:100px;
+      span { font-size:10px;text-transform:uppercase; }
+      label { display:block;color:@gray;font-weight:normal;font-size:10px;margin:0 }
+    }
+    .edit {
+      width:60px;
+      text-align:right
+    }
+  }
+
   #setup {
     h4 { font-family:courier }
     h5 {
       em { color:green;font-style:normal; }
+    }
+  }
+
+  #reviews {
+    font-size:10px;
+    li { margin-bottom:18px;line-height:0.9 }
+    time { display:inline-block;width:34px;font-size:10px }
+    label {
+      color:@mediumgray;
+      font-weight:normal;
+      display:block;
+      width:180px;
+      overflow:hidden;
+      height:10px; }
+    blockquote {
+      line-height:1.4;
+      margin:10px 0 0 0;
+      font-size:11px;
+      padding:2px 2px 2px 10px
     }
   }
 }
