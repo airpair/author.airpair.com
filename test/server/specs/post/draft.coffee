@@ -104,8 +104,9 @@ editing = ->
             expect(p0Edit.md.live).to.equal('new')
             expect(p0Edit.md.head).to.be.undefined
             expect(p0Edit.url).to.be.undefined
-            # expect(p0Edit.stats).to.exist
-            # expect(p0Edit.stats.reviews).to.be.undefined
+            expect(p0Edit.stats).to.exist
+            expect(p0Edit.stats.words).to.equal(1)
+            expect(p0Edit.stats.reviews).to.be.undefined
             updatedMD = '## updated md heading\n\nTest pargraph <sup>this is a reference</sup>'
             PUT "/posts/markdown/#{p0._id}", { md: updatedMD }, (p1Edit) ->
               expect(p1Edit.md.live).to.equal(updatedMD)
@@ -126,26 +127,10 @@ editing = ->
                       DONE()
 
 
-  SKIP 'Fails to edit but can preview as editor', ->
-    # title = " Test #{timeSeed()}: Draft Post Edit fails by Editor"
-    # STORY.newUser 'jkg', (s) ->
-    #   s.avatar = 'http://testavatar.com/stpu'
-    #     d = { title, by:_.extend({bio: 'yo yyoy o'},s) }
-    #     POST "/posts", d, {}, (p0) ->
-    #       LOGIN {key:'edap'}, ->
-    #         GET "/posts/#{p0._id}/info", {}, (p1) ->
-    #           p1.title = 'edd ' + p1.title
-    #           p1.assetUrl = 'https://edited.com/test'
-    #           PUT "/posts/#{p0._id}", p1, {}, (p2) ->
-    #             expect(p2.title).to.equal(p1.title)
-    #             expect(p2.assetUrl).to.equal('https://edited.com/test')
-    #             DELETE "/posts/#{p0._id}", { status: 200 }, (r) ->
-    #               LOGIN {key:s.key}, (s2) ->
-    #                 expectIdsEqual(s._id, s2._id)
-    #                 GET '/posts/me', {}, (posts) ->
-    #                   myposts = _.where(posts,(p)->_.idsEqual(p.by.userId,s._id))
-    #                   expect(myposts.length).to.equal(0)
-    #                   DONE()
+  SKIP 'Fails preview as non-author', ->
+  SKIP 'Fails edit as editor', ->
+  SKIP 'Preview as editor', ->
+
 
 updating = ->
 
@@ -211,7 +196,7 @@ updating = ->
 
 
   SKIP "Fails removing all tags"
-  SKIP "AssetUrl must be https unless a youtu.be url"
+  SKIP "AssetUrl must be https"
 
 
 

@@ -36,9 +36,6 @@ module.exports = {
         "created_at" : "2015-03-01T21:12:29Z",
         "updated_at" : "2015-11-15T11:24:52Z",
         "emails" : [{ "verified" : true, "primary" : true, "email" : "airpairtest1@gmail.com" } ],
-        "tokens" : {
-          "apcom" : { "token" : "b6b7790bfcdb4444b5fd982dc96a24813a98cc58" }
-        }
       }
     },
     "photos" : [{"value" : "https://avatars.githubusercontent.com/u/11261012?v=3",
@@ -86,13 +83,12 @@ module.exports = {
         owned_private_repos: 0,
         disk_usage: 0,
         collaborators: 0,
-        plan:
-         { name: 'free',
+        plan: { name: 'free',
            space: 976562499,
            collaborators: 0,
            private_repos: 0 },
-        tokens: {
-          athr: { token: '261d9670b74fed23b2098a55d9bccf55a7526661' }
+        "tokens" : {
+          "apcom" : { "token" : "testteststeszets" }
         }
       }
     },
@@ -336,7 +332,6 @@ module.exports = {
     },
     "auth": {
       "tw": {
-        "tokens" : { "athr" : { "token" : "testsetsetsetstsetsest" } },
         "needs_phone_verification" : false,
         "suspended" : false,
         "notifications" : false,
@@ -427,7 +422,6 @@ module.exports = {
         "email": "stevejpur@gpair.com"
       },
       "gh":{
-        "tokens" : { "athr" : { "token" : "testsetsetsetstsetsest" } },
         "emails" : [ { "verified" : true, "primary" : true, "email" : "stevejpur@gpair.com" } ],
         "updated_at" : "2015-09-10T22:53:25Z",
         "created_at" : "2011-05-02T22:34:14Z",

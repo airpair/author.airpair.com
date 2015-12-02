@@ -4,7 +4,7 @@ anon = ->
 
   IT '/ OK', ->
     PAGE '/', { authenticated: false }, (html) ->
-      expectContains(html,'Signin')
+      expectContains(html,'Login')
       DONE()
 
   IT '/library 302 to /?returnTo=/library', ->
@@ -33,6 +33,33 @@ authd = ->
         DONE()
 
 
+  SKIP '/library does not contain any sensitive data', ->
+    # LOGIN 'jkap', (jk) ->
+    #   GET "/posts/me", {}, (myposts) ->
+    #     for p in myposts
+    #       expect(p.title).to.exist
+    #       expect(p.publishHistory).to.be.undefined
+    #       expect(p.editHistory).to.be.undefined
+    #       if (p.github)
+    #         expect(p.github.stats).to.be.undefined
+    #         expect(p.github.events).to.be.undefined
+    #       for f in p.forkers
+    #         expect(f.email).to.be.undefined
+    #       for r in p.reviews
+    #         expect(r.by.email).to.be.undefined
+    #         for v in r.votes
+    #           expect(v.by.email).to.be.undefined
+    #         for rp in r.replies
+    #           expect(rp.by.email).to.be.undefined
+    #     DONE()
+
+  launch = ->
+
+    IT 'Renamed .meta to htmlHead', ->
+      # db.posts.update({meta:{$exists:1}},{ $rename: {meta:'htmlHead'} },{multi:true})
+      expect(false).to.be.true
+
+
 module.exports = ->
 
   before (done) ->
@@ -41,25 +68,3 @@ module.exports = ->
 
   DESCRIBE("ANONYMOUS", anon)
   DESCRIBE("AUTHENTICATED", authd)
-
-
-
-  # it.skip "Get my posts does not contain any sensitive data", ->
-  #   # LOGIN 'jkap', (jk) ->
-  #   #   GET "/posts/me", {}, (myposts) ->
-  #   #     for p in myposts
-  #   #       expect(p.title).to.exist
-  #   #       expect(p.publishHistory).to.be.undefined
-  #   #       expect(p.editHistory).to.be.undefined
-  #   #       if (p.github)
-  #   #         expect(p.github.stats).to.be.undefined
-  #   #         expect(p.github.events).to.be.undefined
-  #   #       for f in p.forkers
-  #   #         expect(f.email).to.be.undefined
-  #   #       for r in p.reviews
-  #   #         expect(r.by.email).to.be.undefined
-  #   #         for v in r.votes
-  #   #           expect(v.by.email).to.be.undefined
-  #   #         for rp in r.replies
-  #   #           expect(rp.by.email).to.be.undefined
-  #   #     DONE()

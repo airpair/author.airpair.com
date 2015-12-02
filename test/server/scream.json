@@ -7,7 +7,7 @@
     "expectederr":        ["magenta","dim"]
   },
   "mongo": {
-    "collections":        ["users","tags","posts"],
+    "collections":        ["users","tags","posts","templates"],
     "seed": {
       "model":            "User",
       "key":              "jky",
@@ -17,7 +17,7 @@
   },
   "stubs": {
     "on":                 true,
-    "timeout":            10000
+    "timeout":            20000
   },
   "paths": {
     "bson":               "../data/bson",
