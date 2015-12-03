@@ -28,8 +28,8 @@ module.exports = ({Post}, Data, {touchMeta}, {author,authorOrForker}) => ({
     }
 
     var isAuthor = author(user, original)
-    var repoOwner = isAuthor ? global.config.gitPublisher.org
-                             : this.user.social.gh.username
+    var repoOwner = isAuthor ? global.config.wrappers.gitPublisher.org
+                             : this.user.auth.gh.login
 
     Wrappers.GitPublisher.updateFile(user, repoOwner, original.slug, 'post.md', 'edit', update.md, commitMessage, (e, r) => {
       if (e) return cb(e)

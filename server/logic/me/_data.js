@@ -1,34 +1,21 @@
-var {TypesUtil} = require('meanair-shared')
-
 var views = {
-  library:      '_id title meta.lastTouch by md tags assetUrl created submitted published updated forkers.userId reviews._id reviews.by reviews.questions.answer reviews.questions.key',
+  library:      '_id title meta.lastTouch by md tags assetUrl htmlHead.canonical created submitted published updated forkers.userId reviews._id reviews.by reviews.questions.answer reviews.questions.key',
   recent:       '_id title meta.lastTouch by.name submitted published updated stats',
-  mine:         '_id title meta.lastTouch submitted published updated stats',
+  mine:         '_id title meta.lastTouch submitted published updated url assetUrl stats',
   contributing: '_id title by.name submitted published updated stats'
 }
-
-var queries = {
-  library: userId => ({ $or: [
-      { 'by.userId': userId },
-      { 'forkers': { $elemMatch:{userId} } },
-      { 'reviews.by': { $elemMatch:{_id:userId} } }
-    ]}),
-  notBy: userId => ({
-    'by.userId': { $ne: userId }
-    })
-}
-
 
 module.exports = new LogicDataHelper(
 
   views,
 
-  ({chain,select,inflate,map}) => ({
+  //-- Projections
+  ({chain,select,inflate,map}, {BSONID}) => ({
 
     reviews: p =>
       map(p.reviews, r => ({
         _id:  r._id,
-        utc:  TypesUtil.BSONID.toDate(r._id),
+        utc:  BSONID.toDate(r._id),
         on:   p.title,
         pId:  p._id,
         by:   r.by.name,
@@ -53,7 +40,7 @@ module.exports = new LogicDataHelper(
       return {
         userId, drafts, inreview, published,
         scopes:   scopes || false,
-        reviews:  _.take(_.sortBy(reviews,r=>-1*r.utc), 10),
+        reviews:  _.take(_.sortBy(reviews,r=>-1*r.utc), 7),
         recent:   select.recent(chain(recent, '$posts.url', '$posts.stats')),
         mine:     select.mine(chain(mine, '$posts.url', '$posts.stats')),
         forked:   select.contributing(posts.filter(p => _.find(p.forkers, f=>_.idsEqual(userId, f.userId) ))),
@@ -64,8 +51,21 @@ module.exports = new LogicDataHelper(
 
   }),
 
-  queries,
+  //-- Queries
+  {
 
+    library(_id) {
+      return       { $or: [ { 'by.userId': _id },
+                            { 'forkers': { $elemMatch: {userId:_id} } },
+                            { 'reviews.by': { $elemMatch: {_id} } } ] }
+    },
+    notBy(_id) {
+      return       { 'by.userId': { $ne: _id } }
+    }
+
+  },
+
+  //-- Query Opts
   {
     recentlyUpdated: { select: views.library, sort: { 'updated': 1 }, limit: 6 },
     postList: { select: views.library, sort: { 'updated': 1 } },
