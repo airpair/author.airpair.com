@@ -1,5 +1,5 @@
 var data = {
-  examplePostImage: `https//www.airpair.com/static/img/css/blog/example2.jpg`,
+  examplePostImage: `https://static.airpair.com/img/author/example2.jpg`,
   examplePostYouTube: `http://youtu.be/qlOAbrvjMBo`,
   defaultPostMarkdown: `## AirPair Editor Tips
 

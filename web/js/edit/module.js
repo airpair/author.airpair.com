@@ -10,7 +10,7 @@ angular.module("Author.Edit", [])
     .when('/post-details/:id', route('details', require('./details.html')))
     .when('/editor/:id', route('markdown', require('./edit.html')))
     .when('/submit/:id', route('submit', require('./submit.html')))
-    .when('/publish/:id', route('publish', require('./publish.html')))
+    // .when('/publish/:id', route('publish', require('./publish.html')))
 })
 
 
@@ -65,11 +65,8 @@ angular.module("Author.Edit", [])
 
   $scope.exampleImage = () => $scope.data.assetUrl = StaticData.examplePostImage
 
-  if (_id)
-    API(`/posts/details/${_id}`, setScope)
-    //  , by: $scope.session, assetUrl: '//www.airpair.com/static/img/css/blog/example2.jpg'
-  else
-    setScope({ title: '', tags: []})
+  _id ? API(`/posts/details/${_id}`, setScope)
+      : setScope({ title: '', tags: []})
 })
 
 
@@ -152,11 +149,13 @@ angular.module("Author.Edit", [])
       $scope.data.md = r.md.head || r.md.live
 
     $scope.savedMD = r.md.head || r.md.live
+    $scope.syncedMD = r.md.head === r.md.live
     $scope.saved = true
     $scope.title = r.title
+    $scope.slug = r.slug
     $scope.submitted = r.submitted
+    $scope.repo = r.repo
     $scope.published = r.published
-    $scope.url = r.url
     $scope.todo = r.todo
     $scope.previewable = $postsUtil.previewable(r)
     $scope.toPublish = $scope.isAuthor && r.todo.next == 'publish'
@@ -164,7 +163,7 @@ angular.module("Author.Edit", [])
     $scope.underWordcount = r.stats.words < 400
 
     $scope.previewLink = id =>
-      $scope.previewable && $scope.saved ? `/preview/${id}` : ''
+      $scope.previewable && $scope.saved ? `https://www.airpair.com/posts/preview/${id}` : ''
     $scope.redirectSubmit = id => window.location = `/submit/${id}`
     $scope.redirectPublish = id => window.location = `/publish/${id}`
   }
@@ -177,7 +176,7 @@ angular.module("Author.Edit", [])
     // else if (e.message && e.message.match('Bad credentials'))
     //   $scope.credentialsErr = e
     else
-      window.location = "/library"
+      window.location = `/library?err=${e.message}`
   })
 
   $scope.save = () => {
@@ -187,99 +186,59 @@ angular.module("Author.Edit", [])
     API(`/posts/markdown/${_id}`, $scope.data, setScope)
   }
 
-  // $scope.sync = () => $scope.published
-  //   ? alert("Ask an editor to sync your post")
-  //   : API(`/posts/sync/${_id}`, {_id}, setScope)
+  $scope.sync = () => $scope.published
+    ? alert("Ask an editor to sync your post")
+    : API(`/posts/sync/${_id}`, {_id}, setScope)
 
 })
 
 
-.controller('edit:submit', ($scope, $q, $routeParams, $timeout, API) => {
+.controller('edit:submit', ($rootScope, $scope, $q, $routeParams, $timeout, API) => {
   var _id = $routeParams.id
   $scope._id = _id
 
-//   DataService.posts.getByIdForSubmitting({_id}, (post) => {
-//     if (post.submitted)
-//       window.location = '/posts/me?submitted='+post._id
-//     $scope.post = post
-//     $scope.repoAuthorized = post.submit.repoAuthorized
-//     $scope.slugStatus = post.submit.slugStatus
-//   })
+  API(`/posts/submission/${_id}`,
+    r => {
+      $scope.post = r
+      $scope.submission = r.submission
+    },
+    e => {
+      if (e.message.match('cannot be submitted more tha once'))
+        window.location = `/library?submitted=${_id}`
+      else
+        $rootScope.serverErrs.push(e)
+    }
+  )
 
-//   $scope.checkSlugAvailable = (slug) => {
-//     DataService.posts.checkSlugAvailable({_id,slug}, (r) => $scope.slugStatus = r )
-//   }
+  $scope.refreshSubmission = () => {
+    DataService.posts.checkSlugAvailable({_id,slug}, (r) => $scope.slugStatus = r )
+  }
 
-//   $scope.submitForReviewDeferred = () => {
-//     var deferred = $q.defer()
-//     var slug = $scope.post.slug
-//     if (slug.length > 50) {
-//       alert('Use a slug smaller than 50 chars'); $timeout(deferred.reject, 10)
-//     }
-//     else if (slug.indexOf('--') != -1){
-//       alert('Clean up that slug url! No double -- please :)'); $timeout(deferred.reject, 10)
-//     }
-//     else {
-//       DataService.posts.submitForReview($scope.post, (r) => {
-//         window.location = '/posts/me?submitted='+r._id
-//         deferred.resolve(r)
-//       },
-//       (e) => {
-//         ServerErrors.add(e)
-//         deferred.reject(e)
-//       })
-//     }
-
-//     return deferred.promise
-//   }
-
-})
-
-
-
-.controller('edit:publish', function($scope, DataService, $routeParams) {
-  var _id = $routeParams.id
-
-//   $scope.setPublishedOverride = () => {
-//     if (!$scope.data.publishedOverride)
-//       $scope.data.publishedOverride = $scope.post.published || moment().format()
-//   }
-
-//   $scope.user = () => { return $scope.post.by }
-//   $scope.selectUser = (user) => {
-//     $scope.post.by = {
-//       userId: user._id,
-//       name: user.name,
-//       avatar: user.avatar,
-//       bio: user.bio,
-//       username: user.username
-//     };
-//     $scope.data.by = $scope.post.by
-//   }
-
-//   var setScope = (r) => {
-//     var isAdmin =  _.contains($scope.session.roles, 'admin')
-//     var isEditor =  _.contains($scope.session.roles, 'editor')
-//     $scope.post = r
-//     $scope.data = _.pick(r, '_id', 'meta', 'tmpl', 'by')
-//     $scope.$watch('data.meta.description', (value) => $scope.data.meta.ogDescription = value )
-//     $scope.$watch('data.meta.ogImage', (value) => $scope.post.meta.ogImage = value )
-//     $scope.canPublish = r.reviews && r.reviews.length > 0 || isAdmin || isEditor
-//     $scope.canPropagate = isAdmin || isEditor || !r.published
-//     $scope.canChangeAuthor = isAdmin
-//     $scope.canSetTemplate = isAdmin
-//     $scope.canOverrideCanonical = isAdmin
-//     $scope.headPropagated = (r.mdHEAD) ? r.md == r.mdHEAD : true
-//   }
-
-//   DataService.posts.getByIdForPubishing({_id}, setScope)
-
-//   $scope.propagate = () =>
-//     DataService.posts.propagateFromHEAD({_id}, setScope)
-
-//   $scope.submitPublish = (formValid, data, postPublishForm) => {
-//     if (formValid)
-//       DataService.posts.publish(data, (r) => window.location = r.meta.canonical)
-//   }
+  $scope.submitDeferred = () => {
+    var deferred = $q.defer()
+    var slug = $scope.post.slug
+    if (slug.length > 50) {
+      alert('Use a slug smaller than 50 chars'); $timeout(deferred.reject, 10)
+    }
+    else if (slug.indexOf('--') != -1){
+      alert('Clean up that slug url! No double -- please :)'); $timeout(deferred.reject, 10)
+    }
+    else {
+      API(`/posts/updatesubmit/${_id}`,
+        $scope.post,
+        r => {
+          window.location = '/library?submitted='+r._id
+          deferred.resolve(r)
+        },
+        e => {
+          $rootScope.serverErrs.push(e)
+          deferred.reject(e)
+        })
+    }
+    return deferred.promise
+  }
 
 })
+
+
+

@@ -7,20 +7,20 @@
 
   <div ng-if="data" class="statusbar {{saved ? 'saved': 'unsaved' }}">
     <div class="tip">
-      <!-- <label>TIP:</label> -->
       <todo-helper todo="todo" md="data.md" id="_id"></todo-helper>
     </div>
 
     <span class="status">
       <span class="unsaved" ng-if="!saved">unsaved</span>
       <span class="saved" ng-if="saved">saved</span>
-        <!-- <span ng-if="post.submitted"> <a href="https://www.github.com/{{post.repo}}/blob/edit/post.md" target="_blank"></a> on edit branch</span> <span class="unsaved" ng-if="!post.synced">(HEAD not synced)</span> -->
+
+        <span ng-if="submitted"> <a href="https://www.github.com/{{repo}}/blob/edit/post.md" target="_blank">{{repo}}</a> on edit branch</span> <span class="unsaved" ng-if="!syncedMD">(HEAD not synced)</span>
+
 
       <b>{{title}}</b>
 
-      [<span ng-if="!submitted && !published">DRAFT</span><span ng-if="submitted && !published"><a href="/activity/in-review" target="_blank">Submited</a></span><span ng-if="published"><a href="{{url}}" target="_blank">published</a></span>]
+      [<span ng-if="!submitted && !published">DRAFT</span><span ng-if="submitted && !published">SUBMITTED</span><span ng-if="published">PUBLISHED</span>]
 
-      <!-- <span ng-if="post.submitted"> , <span class="saved" ng-if="post.synced">synced</span></span>. -->
     </span>
   </div>
 
@@ -38,9 +38,9 @@
       ng-model="data.md"
       >
     </section>
-  <!--
-    <section id="post" ap-post="">
-    </section> -->
+
+  <!--<section id="post" ap-post="">
+      </section> -->
 
   </div>
 
@@ -58,19 +58,19 @@
     ng-if="toSubmit" ng-click="redirectSubmit(_id)"
     ng-disabled="!saved">Submit</button>
 
-  <!--   <a class="btn btn-pr" href="https://github.com/airpair/{{post.slug}}/compare/edit...{{session.social.gh.username}}:edit" target="_blank" ng-if="!isAuthor"
-      ng-disabled="!post.saved || post.synced">Create PR</a>
-   -->
-  <!--   <input type="button" class="btn btn-sync" ng-click="propagate()" ng-if="post.submitted && isAuthor" ng-disabled="!post.saved || post.synced" value="Sync" />
-   -->
+  <a class="btn-pr" ng-if="!isAuthor" href="https://github.com/airpair/{{slug}}/compare/edit...{{repo}}:edit" target="_blank"
+      ng-disabled="!saved || syncedMD">Create PR</a>
+
+  <input type="button" class="btn-sync" ng-click="sync()" ng-if="submitted && isAuthor" ng-disabled="!saved || syncedMD" value="Sync" />
+
 
   <button class="btn-publish"
     ng-if="toPublish" ng-click="redirectPublish(_id)"
     ng-disabled="!saved">Publish</button>
 
 
-  <div class="commitmsg" ng-if="post.submitted">
-    <input type="text" ng-disabled="post.saved" ng-model="post.commitMessage" placeholder="Enter a commit message" class="form-control" />
+  <div class="commitmsg" ng-if="submitted">
+    <input type="text" ng-disabled="saved" ng-model="data.commitMessage" placeholder="Enter a commit message" class="form-control" />
   </div>
 
  <!-- && wordcountTooLow -->
