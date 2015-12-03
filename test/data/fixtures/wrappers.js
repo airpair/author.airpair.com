@@ -16,6 +16,9 @@ module.exports = {
   }),
 
 
+  ghp_scopes: {github:['user','public_repo']},
+
+
   gh_user_scopes: {
     meta: {
       'x-ratelimit-limit': '5000',

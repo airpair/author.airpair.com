@@ -12,7 +12,7 @@ ENSURE_AUTHOR = (key, cb) ->
 
 
 module.exports = (key, opts, done) ->
-  suffix = timeSeed()
+  suffix = DATA.timeSeed()
 
   if !done and opts.constructor is Function
     done = opts
@@ -22,12 +22,12 @@ module.exports = (key, opts, done) ->
   d = UNIQUIFY_POST(key)
   ENSURE_AUTHOR author, (s) ->
     post =
-      _id:          newId()
+      _id:          DATA.newId()
       by:           Object.assign(d.by, {userId:s._id,name:s.name})
       title:        d.title
       assetUrl:     d.assetUrl
       tags:         d.tags
-      md:           d.md + lotsOfWords('## test #{suffix}')
+      md:           d.md + DATA.lotsOfWords('## test #{suffix}')
       created:      new Date()
       updated:      new Date()
 

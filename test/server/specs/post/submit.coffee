@@ -1,14 +1,14 @@
 basic = ->
 
   beforeEach ->
-    STUB.cb(Wrappers.GitPublisher, 'getScopes', {github:['user','public_repo']})
+    STUB.wrapper('GitPublisher').cb('getScopes', 'ghp_scopes')
 
 
   IT "With simple post and valid github token", ->
-    STUB_allGitPublishAPIcalls()
-    STORY.newPost 'higherOrder', { author: 'tst8', data: {title: "Higher #{timeSeed()}"} }, (p0, session) ->
+    STUB.allGitPublisherAPIcalls()
+    STORY.newPost 'higherOrder', { author: 'tst8', data: {title: "Higher #{@timeSeed}"} }, (p0, session) ->
       GET "/posts/submission/#{p0._id}", (pSubmission) ->
-        expectIdsEqual(pSubmission._id, p0._id)
+        EXPECT.equalIds(pSubmission._id, p0._id)
         expect(pSubmission.slug).to.exist
         expect(pSubmission.submission.valid).to.be.true
         PUT "/posts/submit/#{p0._id}", pSubmission, (p1) ->

@@ -4,12 +4,12 @@ anon = ->
 
   IT '/ OK', ->
     PAGE '/', { authenticated: false }, (html) ->
-      expectContains(html,'Login')
+      EXPECT.contains(html,'Login')
       DONE()
 
   IT '/library 302 to /?returnTo=/library', ->
     PAGE '/library', { authenticated: false, status: 302 }, (text) ->
-      expectContains(text,'Redirecting to /?returnTo=/library')
+      EXPECT.contains(text,'Redirecting to /?returnTo=/library')
       DONE()
 
 
@@ -18,18 +18,18 @@ authd = ->
 
   IT '/ 302 to /library', ->
     LOGIN {key:'tst1'}, (session) ->
-      expectIdsEqual(session._id, FIXTURE.users.tst1._id)
+      EXPECT.equalIdAttrs(session, FIXTURE.users.tst1)
       expect(session.name).to.equal('Air PairOne')
       PAGE '/', { status: 302 }, (text) ->
-        expectContains(text,'Redirecting to /library')
+        EXPECT.contains(text,'Redirecting to /library')
         DONE()
 
 
   IT '/library OK', ->
     LOGIN {key:'tst1'}, (session) ->
       PAGE '/library', { status: 200 }, (text) ->
-        expectContains(text,'ng-view')
-        expectContains(text,'window.pageData = { session: {"_id":"5649cf5beb1811be02f0ec39","name":"Air PairOne"} }')
+        EXPECT.contains(text,'ng-view')
+        EXPECT.contains(text,'window.pageData = { session: {"_id":"5649cf5beb1811be02f0ec39","name":"Air PairOne"} }')
         DONE()
 
 
