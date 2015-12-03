@@ -74,8 +74,8 @@ deleting = ->
       POST "/posts", { title }, (p0) ->
         DB.docById 'Post', p0._id, (p0DB) ->
           expect(p0DB).to.exist
-          STORY.newUser 'tst1', (stst1) ->
-            expect(s._id.toString()).not.equal(stst1._id.toString())
+          STORY.newUser 'tbel', (stbel) ->
+            expect(s._id.toString()).not.equal(stbel._id.toString())
             DELETE "/posts/#{p0._id}", { status: 403 }, (err) ->
               DB.docById 'Post', p0._id, (pDB) ->
                 expect(pDB).to.exist

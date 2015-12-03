@@ -398,7 +398,7 @@ module.exports = {
   },
 
 
-  gh_user_editOrganizationMembership_success: {
+  gh_user_editOrganizationMembership_JustASimpleTestOrg: {
     url: 'https://api.github.com/orgs/JustASimpleTestOrg/memberships/pairy',
     state: 'active',
     role: 'member',
