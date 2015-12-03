@@ -21,7 +21,7 @@
     "imports":               ["css"]
   },
   "nodemon": {
-    "dirs":                  ["server","server/.lib"],
+    "dirs":                  ["server","server/.lib","shared"],
     "config": {
       "restartable":         false,
       "verbose":             true,
