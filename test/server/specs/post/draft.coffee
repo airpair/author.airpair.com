@@ -145,11 +145,11 @@ updating = ->
         STORY.newUser 'tst5', (s) ->
           expect(s._id.toString()).not.equal(p0.by.userId.toString())
           GET "/posts/details/#{p0._id}", { status: 403 }, (e0) ->
-            expect(e0.message).to.equal('Post details must be updated by owner')
+            EXPECT.contains(e0.message, 'Post details must be updated by owner')
             p0.tags = tags
             expect(p0.tags.length).to.equal(2)
             PUT "/posts/details/#{p0._id}", p0, { status: 403 }, (e1) ->
-              expect(e1.message).to.equal('Post must be updated by owner')
+              EXPECT.contains(e1.message, 'Post must be updated by owner')
               # STORY.newEditor 'tst8', (s) ->
               # PUT "/posts/details/#{p0._id}", p0, { status: 403 }, (e1) ->
                 # expect(e1.message).to.equal('Post[draft] must be updated by owner')
