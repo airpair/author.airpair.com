@@ -1,0 +1,48 @@
+<!-- <banner-postcomp></banner-postcomp> -->
+
+<section id="activity">
+
+  <h3 class="underline">Activity
+    <a href="https://www.airpair.com/software-experts" target="_blank" class="btn btn-sm btn-inverse">Live blog</a>
+  </h3>
+  <div class="postslist">
+
+  <article itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost" ng-repeat="p in posts">
+        <img ng-rc="{{p.assetUrl}}" />
+        <p><a href="/activity/post/{{p._id}}">{{p.title}}</a></p>
+        <time>{{p.updated}}</time>
+        <label>{{p.by}}</label>
+        <i>Submitted [{{p.submit}}]</i>
+        <i>Published [{{p.published}}]</i>
+       <!-- <a ng-href="/activity/post/{{p._id}}" target="_self">
+        <header class="entry-header">
+          <img class="entry-header-image" itemprop="image" ng-src="{{ p.assetUrl }}" align="left" />
+          <div class="glass"></div>
+          <p>
+            <span class="entry-categories">
+              <em ng-repeat='tag in p.tags'>{{ tag.slug }}</em>
+            </span>
+          </p>
+        </header>
+
+        <div class="entry-content" itemprop="text">
+          <div class="stars" stars val="p.stats.rating"></div>
+          <h2 class="entry-title" itemprop="headline">{{ post.title }}</h2>
+
+
+          <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+            <span class="entry-author-name" itemprop="name">{{ post.by.name }}</span>
+          </span>
+
+        </div>
+      </a>
+      <footer class="entry-footer">
+        <img class="entry-author-img" itemprop="image" ng-src="{{ p.by.avatar }}?s=50" />
+    </footer> -->
+
+  </article>
+
+
+  </div>
+
+</section>

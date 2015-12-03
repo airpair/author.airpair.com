@@ -17,7 +17,7 @@ module.exports = (DAL, Data, Shared, {authorOrForker,getHeadMarkdown}) => ({
     })
   },
 
-  project: Data.Project.preview
+  project: Data.Project.previewable
 
 })
 

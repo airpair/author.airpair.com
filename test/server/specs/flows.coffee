@@ -14,7 +14,7 @@ newUsers = ->
     STUB.allGitPublisherAPIcalls()
     STORY.newUser 'tst1', { ghKey: 'author1', login: true }, (s) ->
       LIBRARY s, {}, (lib0) ->
-        expect(lib0.recent.length).to.be.at.least(1)
+        expect(lib0.mine.length).to.equal(0)
         PAGE "/new", {}, (html1) ->
           EXPECT.contains(html1, "window.pageData = { session: {\"_id\":\"#{s._id}\",\"name\":\"#{s.name}\"} }")
           POST "/posts", {title}, (p0) ->

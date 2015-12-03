@@ -1,7 +1,7 @@
 ## Comment flags on and off to tune log output
 process.env.LOG_APP              = '{{undefine}}'   # app load times
 process.env.LOG_AUTH             = '{{undefine}}'   # auth activity
-process.env.LOG_CONF_ROUTES      = '{{undefine}}'   # routes/urls on load
+process.env.LOG_CFG_ROUTE        = '{{undefine}}'   # routes/urls on load
 process.env.LOG_MW_TRACE         = '{{undefine}}'   # middleware execution
 process.env.LOG_MW_API           = '{{undefine}}'   # json reponses
 process.env.LOG_MW_PAGE          = '{{undefine}}'   # GET text/html

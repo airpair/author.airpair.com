@@ -67,6 +67,14 @@ var retryableFns = {
     var payload = { user: org, repo, sha: offCommit.sha, ref: `refs/heads/${branchName}` }
     this.api.gitdata.createReference(payload, (e,r)=>cb(e,r,payload))
   },
+  getPullRequests(user, owner, repo, cb) {
+    var payload = { user: owner, repo, state: 'all', per_page: 100 }
+    this.api.pullRequests.getAll(payload, (e,r) => {
+      if (e) return cb(e, r, payload)
+      if (r && r.meta) delete r.meta
+      cb(e, r, payload)
+    })
+  },
   addFile(user, repoOwner, repo, path, branch, content, message, cb) {
     var payload = { content: new Buffer(content).toString('base64'),
       user: repoOwner, repo, path, message, branch: branch || 'master' }

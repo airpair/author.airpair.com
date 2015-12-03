@@ -1,30 +1,28 @@
-var fields = {
-  cached: '_id slug name'
+var views = {
+  cached: '_id slug name',
+  search: { _id:1, name:1, slug:1, desc:1, short:1,
+            score: { $meta: "textScore" } }
 }
 
-var Project = {
-  fields
-}
 
+module.exports = new LogicDataHelper(views,
 
-var Query = {
-  Opts: {
-    sortByName: {sort:{name:1}},
-    search: {
-      select: {
-        _id: 1,
-        name: 1,
-        slug: 1,
-        desc: 1,
-        short: 1,
-        score: { $meta: "textScore" }
-      },
-      sort: { score: { $meta: "textScore" } },
-      limit: 10
-    }
+  () => ({
+
+  }),
+
+  {
+    search(term) { return { $text: { $search: '\"'+term+'\"' } } }
+  },
+
+  {
+    cached:       { select: views.cached },
+    sortByName:   { sort:   { name:1 } },
+    search:       {
+                    select: views.search,
+                    limit:  10,
+                    sort:   { score: { $meta: "textScore" } },
+                  }
   }
-}
 
-
-
-module.exports = {Project,Query}
+)
