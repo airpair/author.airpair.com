@@ -2,9 +2,6 @@ module.exports = (app,mw) => {
 
   var {bundle}      = config.http.static
 
-  if (config.auth.oauth.github.clientID == '{{required-for-oauth-to-work}}')
-    Object.assign(app.locals, { warnings: ['GitHub OAuth not configured. Login will not work...'] })
-
   app.locals = _.extend(app.locals, {bundle})
 
   mw.cache('postPage', mw.res.page('post'))
@@ -42,6 +39,7 @@ module.exports = (app,mw) => {
            '/post-details/*',
            '/submit/*',
            '/preview/*',
+           '/activity/post/*'
            // '/forked',
            // '/reviewd',
            ],

@@ -1,36 +1,36 @@
 module.exports = (app, mw) => {
 
-
-  mw.cache('cachedTags', mw.data.cacheReady('tags'))
-  mw.cache('limit2mb', mw.res.jsonLimit('2mb'))
-  // mw.cache('authorExpert', mw.data.populate('expert:post', 'by.userId'))
-
-
   app.API('tags')
     .middleware('cachedTags')
     .get ({ use: 'authd' },
-          { search:               'query.q'      })
+          { search:               'query.q'           })
     .end('apiJson')
 
 
   app.API('me')
     .middleware('authd cachedTags populateMe')
-    .get ({ getLibrary:           ''             })
+    .get ({ use: 'populateScopes' },
+          { getLibrary:           ''                  })
     .end()
 
 
   app.API('posts')
     .params('post:Post')
     .middleware('authd cachedTags populateMe')
-    .post({ create:               'body'  })
+    .post({ create:               'body'              })
     .get ({ getDetails:           'post',
+            getActivity:          'post',
             getMarkdown:          'post',
-            getPreview:           'post'         })
+            getPreview:           'post'              })
+    .get ({ use: 'populateScopes' },
+          { getSubmission:        'post params.slug'  })
     .put ({ use:'limit2mb' },
-          { updateMarkdown:       'post body'    })
-    .put ({ updateDetails:        'post body'    })
-    .delete({ delete:             'post' })
+          { updateMarkdown:       'post body',
+            updateSync:           'post'              })
+    .put ({ use:'populateAuthorExpert' },
+          { updateDetails:        'post body',
+            updateSubmit:         'post body.slug'    })
+    .delete({ delete:             'post'              })
     .end()
-
 
 }
