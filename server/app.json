@@ -9,7 +9,7 @@
         "emails":              false,
         "logic":               "loginAuthor",
         "userAgent":           "{{required}}",
-        "scope":               ["public_repo"]
+        "scope":               ["public_repo","user"]
       }
     }
   },
@@ -25,8 +25,8 @@
   },
   "log": {
     "model":                  false,
-    "auth":                   { "theme": { "link": "green" } },
-    "wrpr":                   { "theme": { "ghcall": "cyan" } }
+    "auth":                   { "link":"green" },
+    "wrpr":                   { "ghcall":"cyan", "ghretry":"yellow", "ghstep":"white" }
   },
   "middleware": {
     "session":                { "authedData": "_id name" },
@@ -40,6 +40,7 @@
   },
   "wrappers": {
     "gitPublisher": {
+      "adminToken":           "{{required}}",
       "org":                  "{{required}}",
       "retry":                { "delay": 1000, "max": 3 }
     }
