@@ -1,1 +1,5 @@
-../../../../../static/js/ang.v1/services/_index.js
+require('./staticData.js')
+
+
+angular.module('Author.Services',
+              ['Author.Services.StaticData'])

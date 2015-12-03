@@ -1,0 +1,74 @@
+<header ng-if="data">
+  <ol class="entry-meta breadcrumb">
+    <li><a href="/library" target="_self">Library</a></li>
+    <li ng-if="!_id" class="current">New Post</li>
+    <li ng-if="_id" class="current">Post details</li>
+    <li ng-if="!_id" class="next">Edit</li>
+    <li ng-if="_id" class="next"><a href="/editor/{{_id}}">Edit</a></li>
+  </ol>
+</header>
+
+
+<section id="postinfo" ng-if="data">
+
+  <div class="form">
+
+    <img class="flowpic" ng-if="!_id" src="//static.airpair.com/img/author/authoring-flow-start.png" />
+
+   <div class="startmsg" ng-if="!_id">
+    <h3>Exciting... a blank canvas!</h3>
+    <p>
+    New posts start in draft mode. The title and everything you <em>write</em>
+    are 100% editable. Everything is <i class="info">only</i> visible to you. When you're ready to <em>collaborate</em> with others via forks and pull requests we'll walk you through submitting your post.
+    </p>
+  </div>
+
+    <!-- <div class="form-group">
+      <label>Author bio <i>{{post.by.bio.length}} / 255 characters</i></label>
+      <div social-connect class="connect-icons"></div>
+      <textarea ng-model="post.by.bio" type="text" class="form-control"></textarea>
+    </div> -->
+    <div class="form-group">
+      <label>Title of your blog post</label>
+      <input ng-model="data.title" type="text" class="form-control" placeholder="Type a title (editable later if needed)" ng-focus="clearDefaultTitle()" />
+    </div>
+
+    <div ng-if="data._id">
+
+      <div class="form-group">
+        <label>Featured media url
+          <i ng-show="data.title" class="info">
+            use temporary placeholder
+            <a href ng-click="exampleImage()">image</a>
+          </i>
+        </label>
+        <input ng-model="data.assetUrl" type="text" class="form-control"
+          placeholder="Paste https image url" />
+      </div>
+
+      <div class="form-group">
+        <label>Tags </label>
+        <div input-tags data="data.tags"></div>
+      </div>
+
+    </div>
+    <hr />
+
+    <div class="form-actions">
+
+    <!-- fuck angular v1 sometimes seriously -->
+      <button ng-if="!savable(data)" class="btn" disabled>Save</button>
+      <button ng-if="savable(data)" class="btn" ng-click="save(data)">Save</button>
+
+      <!-- <p ng-if="post._id && (!post.assetUrl || !post.tags || post.tags.length == 0)">
+        You will be able to open your post in full page preview mode once you've saved
+        tags and a featured media asset.
+      </p>
+ -->
+    </div>
+
+<!--   <section ap-post=""></section> -->
+
+
+</section>
+

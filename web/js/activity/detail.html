@@ -1,0 +1,76 @@
+<section id="postactivity" ng-if="data">
+
+  <h3>{{data.title}}</h3>
+
+  <table style="width:300px">
+    <tr>
+      <td><label>Submitted</label></td>
+      <td>{{data.submitted}}</td>
+    </tr>
+    <tr>
+      <td><label>Published</label></td>
+      <td>{{data.published || 'n/a' }}</td>
+    </tr>
+    <tr>
+      <td><label>Updated</label></td>
+      <td>{{data.updated}}</td>
+    </tr>
+  </table>
+
+  <hr />
+  <p>Page coming soon. Return to <a href="/library"><b>Library</b></a></p>
+
+  {{ data.stats }}
+
+  <hr />
+
+
+
+
+  <section class="body">
+<!--
+
+    <div class="rail">
+      <a ng-href="{{post.url}}" class="thumb" target="_self"><img ng-src="{{post.meta.ogImage}}" /></a>
+
+      <a href="/posts/edit/{{post._id}}" class="icon edit"></a>
+
+      <h4>Forked <b>{{post.forkers.length}}</b> times</h4>
+
+      <ul class="forkers">
+        <li ng-repeat="f in post.forkers">
+          <img ng-src="{{f.avatar}}?s=20" class="user" />
+        </li>
+      </ul>
+
+      <h4>Accepted Pull requests <b>n/a</b></h4>
+
+      <ul class="acceptedPRs">
+      </ul>
+
+    </div>
+ -->
+
+    <div id="github">
+      <h3 class="underline">GitHub</h3>
+      <h4>Pull requests
+        <span><img src="https://static.airpair.com/img/author/sm-icon-fork.png">{{dta.stats.openPRs}} Open, </span>
+        <span><img src="https://static.airpair.com/img/author/sm-icon-fork.png" style="opacity:0.6">{{data.stats.closedPRs}} Closed</span>
+      </h4>
+      <ul class="pullRequests" ng-if="data.pullRequests">
+        <li ng-repeat="pr in data.pullRequests">
+          <a href="{{pr.html_url}}" target="_blank">
+            <img ng-src="{{pr.user.avatar_url}}&s=36" />
+            <label>{{pr.title}}</label>
+            <time>#{{pr.number}} {{pr.created_at | timeAgo }} by {{pr.user.login}}</time>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- <div id="reviews" post-reviews></div> -->
+
+  </section>
+
+</section>
+

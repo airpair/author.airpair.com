@@ -4,6 +4,7 @@
     "angular": "1.4.5",
     "angular-load": "0.4.0",
     "angular-route": "1.4.5",
+    "angular-ui-ace": "0.2.3",
     "lodash": "3.10.1",
     "jquery": "2.1.3"
   }

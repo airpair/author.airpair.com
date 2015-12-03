@@ -1,0 +1,43 @@
+<span ng-if="next">
+  <span ng-if="next == 'tag'">
+    <a href="/post-details/{{_id}}">add tags</a> to unlock preview
+  </span>
+  <span ng-if="next == 'asset'">
+    <a href="/post-details/{{_id}}">add primary media</a> to unlock preview
+  </span>
+  <span ng-if="next == 'wordcount'">
+    Min 400 words to submit (about <b>{{wordstogo}}</b> to go)
+  </span>
+  <span ng-if="next == 'submit'">Post looks ready to
+    <a ng-href="/submit/{{p._id}}">submit</a> for community feedback!
+  </span>
+
+
+  <!-- {{next}} -->
+  <!-- <p ng-if="calcDraftStep()">
+    <span ng-if="wordcountTooLow">
+      </span>
+
+    <span ng-if="needInfo">
+      Complete your post header.
+      <a href="/posts/info/{{p._id}}">
+        <span ng-if="needTags">Add tags</span><span ng-if="needAssetUrl"> Provide a  media asset</span></a>
+    </span>
+  </p>
+  <p ng-if="calcReviewStep()">
+    <span ng-if="needReviews">
+      Post needs reviews to get published.
+      <span ng-if="isAuthor">
+        <a href="/posts/contributors/{{p._id}}">Find contributors!</a>
+      </span>
+    </span>
+    <span ng-if="publishReady">BOOM :). Post looks ready!
+      <a ng-href="/posts/publish/{{p._id}}">Publish now</a>
+    </span>
+  </p>
+  <p ng-if="p.needsMyReview || p.needsMyFork">
+    <a ng-if="p.needsMyReview" ng-href="/posts/contributors/{{p._id}}">Give feedback</a>
+    <a ng-if="p.needsMyFork && !p.published" ng-href="/posts/fork/{{p._id}}">Fork & suggest edits</a>
+  </p>
+ -->
+ </span>

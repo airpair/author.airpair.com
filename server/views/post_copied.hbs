@@ -1,0 +1,182 @@
+{{!-- <header class="entry-header">
+  <ol class="entry-meta breadcrumb">
+    <li><a href="/posts" target="_self">Posts</a></li>
+    {{#if primarytag}}<li>
+      <a href="{{ primarytag.postsUrl }}" target="_self">{{ primarytag.slug }}</a>
+    </li>
+    {{/if}}
+    <li>
+      <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="//schema.org/Person">
+      {{#if by.username}}
+        <a href="/me/{{by.username}}" class="entry-author-link" itemprop="url" rel="author" target="_self">
+        <span class="entry-author-name" itemprop="name">{{by.name}}</span></a>
+      {{else}}
+        <span class="entry-author-name" itemprop="name">{{by.name}}</span>
+      {{/if}}
+      </span>
+    </li>
+  </ol>
+</header> --}}
+
+<h1>Post coming shortly</h1>
+
+{{!-- {{#if published }}
+<div class="banner-top">
+  <a rel="nofollow" href="/visit/heroku-151014-{{adtag}}" class="banner banner-top banner-heroku-adtag" target="_blank">
+    <img src="/ad/heroku/900x90.1.{{adtag}}.signup.png" alt="Deploy {{adtag}} on Heroku" />
+  </a>
+</div>
+{{/if}}
+
+<article class="blogpost">
+
+  <h1 class="entry-title" itemprop="headline">{{ title }}</h1>
+
+  {{#unless published}}
+    {{#if submitted }}
+    <section class="notifications">
+      <div id="postinreview">
+        <h2><img ng-src="/static/img/css/airpair-author.png" /> This post is under <a href="/posts/in-community-review" target="_self">Community Review</a></h2>
+        {{#unless publishReady}}
+        <p>Posts need a minimum of <a href="#reviews">3 reviews</a> with a minimum 3.5/5 star rating, to be published.</p>
+        {{/unless}}
+      </div>
+    </section>
+    {{/if}}
+  {{/unless}}
+
+  <div class="railMarker"></div>
+
+  <h4 id="table-of-contents">Table of Contents</h4>
+  {{{toc}}}
+
+  <figure class="author">
+    <img alt="{{by.name}}" src="{{by.avatar}}?s=100">
+    <hr />
+    <div>
+      <label>{{ by.name }}</label>
+      <social-links profile='{{ JSON by.social }}'></social-links>
+      <figcaption>
+        {{by.bio}}
+      </figcaption>
+    </div>
+    <hr />
+  </figure>
+
+  {{#if assetUrl }}
+  <p class="asset">{{ assetUrlToMedia assetUrl }}</p>
+  {{/if}}
+  <hr />
+
+  <post no-compile>{{{ html }}}</post>
+
+  {{#if published }}
+  <div class="share">
+    <div class="pw-widget pw-size-large pw-counter-show" pw:twitter-via="airpair">
+      <a class="pw-button-twitter"></a><a class="pw-button-facebook"></a><a class="pw-button-linkedin"></a><a class="pw-button-googleplus"></a>{{!-- <a class="pw-button-reddit"></a> --}}
+      <a class="pw-button-post"></a>
+    </div>
+  </div>
+  {{/if}}
+
+
+  <div class="rail1CTA railBookmarkCTA">
+    {{#if github }}
+    {{#if stars }}
+      <post-rail-stars></post-rail-stars>
+    {{/if}}
+    {{/if}}
+    {{#if published }}
+    <h6>Need 1 on 1 expert help?</h6>
+    <div class="gethelp">
+      <img src="{{by.avatar}}?s=100" />
+      <span><b>PAIR UP</b> with<br /> experts like <br />{{by.name}}</span>
+      {{#if authenticated}}
+  {{#if by.expertId }}
+  <div class="book-cta">
+    <b>Want help from a top {{primarytag.name}} developer?</b> {{by.name}} is available for live {{primarytag.name}} pair programming on AirPair.
+    <a id="postTopBookAuthor" data="{{ by.expertId }}" track-click="book" href="/billing/book/{{by.expertId}}">&gt;&gt; Video chat with {{by.name}}</a>
+  </div>
+  {{/if}}
+        {{#if by.expertId }}
+          <a id="postSideBookAuthor" data="{{by.expertId}}" track-click="book" href="/billing/book/{{by.expertId}}" class="btn btn-sm">Book</a>
+        {{/if}}
+      {{else}}
+        <a href="/login" class="btn btn-sm">Login</a>
+      {{/if}}
+    </div>
+    {{else}}
+    <h6>Help make this post better!</h6>
+    <div class="fork">
+      <a href="/posts/fork/{{_id}}" class="btn">Fork this post!</a>
+      <p>Forked <b>{{forkers.length}}</b> times so far</p>
+    </div>
+    {{/if}}
+  </div>
+
+  {{#if references}}
+  <div id="references" no-compile>
+    <h4>References</h4>
+    <ul class="references">
+      {{#each references}}<li>{{{this}}}</li>{{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+</article>
+
+{{#if submitted }}
+  <div id="reviews" post-reviews reviews='{{ JSON reviews }}' byid="{{by.userId}}"></div>
+{{/if}}
+
+{{#if published }}
+<article class="blogpost">
+<div id="bodyCTA1" class="bodyCTA1 bodyCTA">
+
+</div>
+</article>
+{{/if}}
+
+{{#if showDisqus }}
+<div id="disqus_thread"></div>
+{{/if}}
+
+{{#if published }}
+<div class="banner-top">
+  <a rel="nofollow" href="/visit/heroku-151014-{{adtag}}" class="banner banner-top banner-heroku-adtag" target="_blank">
+    <img src="/ad/heroku/900x90.1.{{adtag}}.signup.png" alt="Deploy {{adtag}} on Heroku" />
+  </a>
+</div>
+{{/if}}
+<footer class="postfooter {{#if showDisqus }}afterdisqus{{/if}}">
+  <h5>Tagged under</h5>
+  <ul class="posttags">{{#each tags}}
+    <li><a href="/posts/tag/{{ slug }}" target="_self">{{ slug }}</a></li>
+  {{/each}}
+  </ul>
+
+  {{#if published }}
+  <div class="share-horizontal">
+    <div class="pw-widget pw-counter-vertical" pw:twitter-via="airpair">
+      <a class="pw-button-twitter pw-look-native"></a>
+      <a class="pw-button-googleplus pw-look-native"></a>
+      <a class="pw-button-facebook pw-look-native"></a>
+      <a class="pw-button-linkedin pw-look-native"></a>
+      <a class="pw-button-tumblr pw-look-native"></a>
+      <a class="pw-button-reddit pw-look-native"></a>
+      <a class="pw-button-email pw-look-native"></a>
+    </div>
+  </div>
+  {{/if}}
+</footer>
+{{#if published }}
+<div id="posts">
+  <section id="allposts" class="similar">
+    <h3 class="underline">Similar posts <a href="/software-experts" class="btn btn-sm btn-inverse" target="_self">All posts</a></h3>
+    <div class="similar nostars">
+      {{#each similar}}{{> postListItem this}}{{/each}}
+    </div>
+  </section>
+</div>
+{{/if}}
+ --}}

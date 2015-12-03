@@ -7,9 +7,9 @@
         "login":               true,
         "unlink":              false,
         "emails":              false,
-        "logic":               "oauth",
+        "logic":               "loginAuthor",
         "userAgent":           "{{required}}",
-        "scope":               ["public_repo"]
+        "scope":               ["public_repo","user"]
       }
     }
   },
@@ -25,13 +25,24 @@
   },
   "log": {
     "model":                  false,
-    "auth":                   { "theme": { "link": "green" } }
+    "auth":                   { "link":"green" },
+    "wrpr":                   { "ghcall":"cyan", "ghretry":"yellow", "ghstep":"white" }
   },
   "middleware": {
     "session":                { "authedData": "_id name" },
     "plugins":                ["res.slow","livereload"]
   },
   "model": {
-    "sessionStore":           { "collection": "sessions_author" }
+    "sessionStore":           { "collection": "sessions_author" },
+    "cache": {
+      "tags":                 { "getter": "tags.getForCache" }
+    }
+  },
+  "wrappers": {
+    "gitPublisher": {
+      "adminToken":           "{{required}}",
+      "org":                  "{{required}}",
+      "retry":                { "delay": 1000, "max": 3 }
+    }
   }
 }

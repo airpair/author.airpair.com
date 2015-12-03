@@ -21,7 +21,7 @@
     "imports":               ["css"]
   },
   "nodemon": {
-    "dirs":                  ["server","server/.lib"],
+    "dirs":                  ["server","server/.lib","shared"],
     "config": {
       "restartable":         false,
       "verbose":             true,
@@ -30,7 +30,7 @@
       "stdin":               true,
       "execMap":             { "js": "node --harmony_destructuring" },
       "script":              "index.js",
-      "ext":                 "js json hbs"
+      "ext":                 "js json hbs env"
     }
   },
   "watch": {

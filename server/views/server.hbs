@@ -7,26 +7,29 @@
 
     <div class="col main">
 
-      <h3>author.airpair.com</h3>
 
       <section class="login">
+        <h3>author.airpair.com</h3>
+
+        <img class="flow" src="https://static.airpair.com/img/author/authoring-flow.png" />
+
         <h2>Login</h2>
 
-        <p>To login to consult.airpair, <b>you first need an
+        <p>Before you can login to author.airpair, <b>you need an
         airpair.com account</b> linked with your GitHub profile.
-        If you don't have that, no drama!
+        If you don't, no drama!
         <a href="https://www.airpair.com/auth/github/callback">login to
-        airpair.com w GitHub</a> first.
+        airpair.com</a> and come back.
         </p>
 
-        <p>If you have logged into airpair.com with GitHub, you're ready:</p>
+        <p>If you have logged into airpair.com recently, you're ready to:</p>
 
         {{#if authenticated}}
           <a href="/logout" target="_self">Logout</a>
         {{else}}
           <a href="/auth/github/callback" target="_self" class="btn gh gh-white">
-          Signin w GitHub</a>
-          <span class="info">We will require GitHub permissions to write to your public directories.</span>
+          Login w GitHub</a>
+          <span class="info">* This site requires write permissions to your public repos</span>
         {{/if}}
       </section>
 
@@ -34,26 +37,48 @@
     </div>
 
     <div class="col side">
-      <h3>this.open_source = true</h3>
+      <h3>this.opensource = true</h3>
 
-      <p><em>author.airpair.com</em> is open source!</p>
+      <p><em>author.airpair.com</em> is <a href="https://github.com/airpair/author.airpair.com" target="_blank">open source</a></p>
 
-      <p>Fork and follow our dev milestones <a href="https://github.com/airpair/author.airpair.com" target="_blank">on GitHub</a>.</p>
-
+{{!--       <iframe src="https://ghbtns.com/github-btn.html?user=airpair&repo=author.airpair.com&type=fork&count=false" frameborder="0" scrolling="0"></iframe>
+ --}}
       <p>Both <em>author.airpair</em> and the framework it's built on are
-      brand new. Please let us know of bugs via the
-      <a href="https://github.com/airpair/author.airpair.com/issues" target="_blank">author.airpair repo issues page</a>.</p>
+      new. Report bugs via the
+      <a href="https://github.com/airpair/author.airpair.com/issues" target="_blank">issues page</a></p>
+      <br />
+      {{!-- <h4>Get paid to contribute</h4>
 
-      <p>Want to share your thoughts? Email them to team@airpair.com</p>
-
-      <h4>Get paid to contribute</h4>
-
-      <p>Wish you had a specific feature? We'll pay
-      any folks that build an "approved" feature and write about it on
-      <a href="https://www.airpair.com/software-experts">airpair blog</a>.</p>
+      <p>We'll pay any developer that wants to write a post
+      (for the airpair blog <a href="https://www.airpair.com/software-experts">airpair blog</a>)
+       about building a feature
+       on top of the meanair stack.</p>
       <p>To propose an idea, fork this repo send a PR with
       a markdown file containing your thoughts under:<code>/docs/features/proposed</code>
+      </p> --}}
+
+    </div>
+
+    <div class="col side">
+      <h4>Almost that time of year!</h4>
+
+      <p>Our first <a href="https://www.airpair.com/100k-writing-competition" target="_blank">$100k writing comp</a> was a huge success.
+      hundreds of posts were authored with $5k, $3k and $2k going
+      to 1st, 2nd & 3rd prizes respectively.</p>
+
+      <p>
+        AirPair's <b>2016 $100k Developer Writing Contest</b>
+        is penciled to run Feb 1 - Apr 30.
+        Sponsors and other annoucements in the coming weeks.
       </p>
+
+
+
+
+
+
+
+
 
     </div>
 

@@ -7,7 +7,7 @@
     "expectederr":        ["magenta","dim"]
   },
   "mongo": {
-    "collections":        ["users","tags","posts"],
+    "collections":        ["users","tags","posts","templates"],
     "seed": {
       "model":            "User",
       "key":              "jky",
@@ -15,8 +15,13 @@
     },
     "url":                "mongodb://localhost/author_test"
   },
+  "stubs": {
+    "on":                 true,
+    "timeout":            20000
+  },
   "paths": {
+    "bson":               "../data/bson",
     "fixtures":           "../data/fixtures",
-    "bson":               "../data/bson"
+    "stories":            "./stories"
   }
 }
