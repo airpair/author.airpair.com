@@ -1,8 +1,27 @@
 var shared = {
 
+  url(post) {
+    return _.get(post,'htmlHead.canonical') ||
+      (post.submitted ? `https://www.airpair.com/posts/review/${post._id}`
+                      : `/editor/${post._id}`)
+  },
+
 
   validSlug(slug) {
     return /^[a-z0-9]+([a-z0-9\-\.]+)*$/.test(slug)
+  },
+
+
+  defaultSlug(post) {
+    var slug = post.title
+               .toLowerCase()
+               .replace(/ /g, '_')
+               .replace(/\W+/g, '')
+               .replace(/_/g, '-')
+
+
+    return (slug.length > 40 ? slug.substring(0,40) : slug)
+               .replace(/-$/,'')
   },
 
 

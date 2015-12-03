@@ -1,15 +1,18 @@
-'use strict';
+var views = {
+  edit:     '_id title tags assetUrl by.userId submitted published updated md slug stats todo repo', //github.repoInfo  created published submitted tags assetUrl  synced
+  details:  '_id title tags assetUrl by slug submitted published ',
+  preview:  '_id title tags assetUrl by body references toc', // created published submitted
+  review:   '_id title tags assetUrl by body references toc review stats', // created published submitted
+  list:     '_id title tags assetUrl by.name stats',
+  submit:   '_id title slug submission',
+  activity: '_id title slug submitted published updated stats'
+}
+
+
 var marked              = require('marked')
 var toc                 = require('./lib/toc')()
 var PostsUtil           = require('../../../shared/posts')
 
-var views = {
-  edit:     '_id title tags assetUrl by.userId url submitted published updated md stats todo', //github.repoInfo slug created published submitted tags assetUrl repo stats synced
-  details:  '_id title tags assetUrl by', // created published submitted
-  preview:  '_id title tags assetUrl by body references toc', // created published submitted
-  review:   '_id title tags assetUrl by body references toc review stats', // created published submitted
-  list:     '_id title tags assetUrl by.name stats'
-}
 
 module.exports = new LogicDataHelper(views,
 
@@ -28,16 +31,22 @@ module.exports = new LogicDataHelper(views,
     },
 
     url: r =>
-      assign(r, { url: _.get(r,'htmlHead.canonical')||`/posts/review/${r._id}` }),
+      assign(r, { url: PostsUtil.url(r) }),
 
     details: r =>
       select.details(chain(r, 'url', inflate.tags)),
 
+    activity: r =>
+      select.activity(chain(r, 'url', 'stats')),
+
     todo: r =>
-      Object.assign(r, { todo: { next: PostsUtil.todo(r)} }),
+      assign(r, { todo: { next: PostsUtil.todo(r)} }),
 
     edit: r =>
-      select.edit(assign(chain(r,'url','stats','todo'), { md: {live:r.md,head:r.headMD} })),
+      select.edit(assign(chain(r,'stats','todo'), { md: {live:r.md,head:r.headMD} })),
+
+    submit: r =>
+      select.submit(assign(r, { slug: r.slug || PostsUtil.defaultSlug(r) })),
 
     preview: r => {
       var {markdown,references} = PostsUtil.extractReferences(r.headMD)
@@ -81,7 +90,7 @@ module.exports = new LogicDataHelper(views,
       // closedPRs: _.where(post.pullRequests||[],(pr)=>pr.state=='closed').length,  // not really correct at all grrr
       // acceptedPRs: _.where(post.pullRequests||[],(pr)=>pr.state=='closed').length,  // not really correct at all grrr
       // shares: 0,            // figure it out later
-      return Object.assign(r, { stats })
+      return assign(r, { stats })
     }
 
   })
