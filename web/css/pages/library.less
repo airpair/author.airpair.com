@@ -1,34 +1,56 @@
 section#library {
 
+  .notifications {
+    > div { padding:8px;background-color:@lightblue }
+    h2 { max-width:760px;margin:10px auto 0px auto;padding:0;font-weight:bold;font-size:20px;line-height:26px;color:@blue }
+    h3 { max-width:760px;margin:5px auto 18px auto;padding-top:0;margin-top:-2px;font-size:16px;line-height:22px;color:@gray }
+    img { display:block;margin:20px auto;max-width:500px;background:white;border-radius:20px;padding:2px 20px }
+    p { max-width:760px;margin:10px auto 18px auto;color:@gray;b { text-transform:uppercase;} }
+  }
+
   #myposts {
     h3 { .hNoStyle;
       font-size:17px;
       margin:30px 0px 11px 0px;
     }
 
-    td { font-size:11px;padding:4px 5px;line-height:1.35 }
-    .social {
-      > div { margin-top:1px }
-      width:100px;font-size:10px
+    td {
+      min-height:30px;
+      font-size:11px;padding:4px 5px;line-height:1.35
     }
-    .details {
-      width:290px;padding-right:30px;
+    td.pic {
+      width:70px;
+      img { height:42px;max-width:52px;overflow:hidden }
+    }
+    td.details {
+      width:290px;padding-right:20px;
       a {
         display:block;
         overflow-y:hidden;
-        margin:1px 0 0 0;font-size:12px;
+        margin:0 0 0 0;font-size:14px;
         height:18px;
       }
       time { display:block }
     }
-    .status {
-      width:100px;
-      span { font-size:10px;text-transform:uppercase; }
+    td.social {
+      width:90px;
+      position:relative;
+      .stars { .stars-tiny;position:absolute;top:10px; }
+    }
+    td.status {
+      width:80px;padding:3px 2px 2px 5px;
+      > span { font-size:10px;text-transform:uppercase; }
       label { display:block;color:@gray;font-weight:normal;font-size:10px;margin:0 }
     }
-    .edit {
-      width:70px;
-      text-align:right
+    td.activity {
+      time { padding:0px 0 1px 0;display:block; }
+      width:112px;font-size:9px;
+      label { padding:0px 0 0 0;font-weight:normal;margin:0 }
+    }
+    td.edit {
+      font-size:11px;
+      width:30px;
+      text-align:right;
     }
   }
 

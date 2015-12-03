@@ -1,23 +1,13 @@
 <section id="library" ng-if="library">
 
-<!--   <section ng-if="forked" class="notifications">
-    <div id="postsubmitted">
-      <h2>Mother Forker!</h2>
-      <h3><a href="https://github.com/{{session.social.gh.username}}/{{forked.slug}}" target="_blank">{{ forked.title }}</a></b> has been forked to your github account.</h3>
-      <img src="/static/img/pages/posts/authoring-flow-review.png" />
-      <p>You can <b>edit</b> your forked version of the post via the AirPair editor. When you're happy with your changes, send a pull request from GitHub.com</p>
-    </div>
-  </section>
-
   <section ng-if="submitted" class="notifications">
     <div id="postsubmitted">
       <h2>{{submitted.title}}</h2>
-      <h3>is submitted for <a href="/posts/in-community-review">community review</a>  and stored on GitHub!</h3>
-      <img src="/static/img/pages/posts/authoring-flow-review.png" />
+      <h3>is submitted for <a href="/actvitiy/in-community-review"></a>community review  and stored on GitHub!</h3>
+      <img src="https://static.airpair.com/img/author/authoring-flow-review.png" />
       <p>Your Markdown is stored on the <code>edit</code> branch. Avoid merging the edit branch into master. The simplest way to continue is to <b>edit</b> via the AirPair editor. All edits are now tracked by git and you can <b>collaborate</b> with contributors using forks & pull requests. With 3 reviews of 3.5 stars or higher, you'll be able to publish your post.</p>
     </div>
   </section>
- -->
 
 
 <div class="col main">
@@ -26,55 +16,48 @@
   <section id="myposts" ng-if="mine.length > 0">
 
    <h3>By you</h3>
-<!--        <ul ng-if="contributions.length > 5">
-        <li><button ng-click="filterMyPosts('all')" ng-disabled="filter == 'all'">All posts</button></li>
-        <li><button ng-click="filterMyPosts('mine')" ng-disabled="filter == 'mine'">My posts</button></li>
-        <li><button ng-click="filterMyPosts('forks')" ng-disabled="filter == 'forks'">By others</button></li>
-      </ul>
-
-       <a href="/posts/new" class="btn btn-sm">Start a post</a>
-      -->
 
     <div ng-if="mine.length > 0" class="myposts">
       <table class="table table-striped">
         <tbody>
           <tr ng-repeat="p in mine">
             <td class="details">
-              <a ng-href="/activity/{{p._id}}" target="_self">{{ p.title }}</a>
-              <time>updated {{p.updated | timeAgo }}
-                 <i ng-if="p.meta.lastTouch">, {{p.meta.lastTouch.action}}d {{p.meta.lastTouch.utc | timeAgo }}
-                  by {{p.meta.lastTouch.by.name}}
-                 </i>
-              </time>
+              <a ng-href="/activity/post/{{p._id}}" target="_self">{{ p.title }}</a>
+              <!-- <todo-helper post="p"></todo-helper> -->
+            </td>
+            <td class="social">
+              <section class="rating" ng-if="p.stats.reviews > 0">
+                <stars val="p.stats.rating"></stars>
+                <!-- by <b>{{p.stats.reviews}}</b> -->
+              </section>
             </td>
             <td class="status">
               <span ng-if="!p.submitted && !p.published">
-                <a href="/editor/{{p._id}}" target="_self">draft
-                </a>
+                <a href="{{p.url}}" target="_self">draft</a>
               </span>
               <span ng-if="p.submitted && !p.published">
-                <a href="/posts/review/{{p._id}}" target="_target">submitted</a>
+                <a href="{{p.url}}" target="_target">submitted</a>
               </span>
               <span ng-if="p.published">
                 <a href="{{p.url}}" target="_target">published</a>
               </span>
               <label class="words" ng-if="p.stats.words > 1">{{p.stats.words}} words</label>
             </td>
-            <td class="social">
-              <div ng-if="p.submitted && p.stats.reviews > 0">
-                <b>{{p.stats.rating}}</b><span>/5</span>
-                <!-- <stars val="p.stats.rating"></stars> -->
-                by <em>{{p.stats.reviews}}</em>
-                  <!-- review<span ng-if="p.stats.reviews > 1">s</span> -->
-              </div>
-              <div ng-if="p.stats.forkers > 0">
-                <em>+{{p.stats.forkers}}</em>
+            <td class="activity">
+
+              <time>updated {{p.updated | timeAgo }}</time>
+              <label class="forks" ng-if="p.stats.forkers > 0">
+                {{p.stats.forkers}}
                 fork<span ng-if="p.stats.forkers > 1">s</span>
-              </div>
+              </label>
+              <!-- <time ng-if="p.meta.lastTouch">
+                {{p.meta.lastTouch.action}}d {{p.meta.lastTouch.utc | timeAgo }}
+                  by {{p.meta.lastTouch.by.name}}
+              </time> -->
             </td>
             <td class="edit">
-              <a ng-if="!p.submitted && !p.published" ng-click="delete(p._id)" title="delete" class="delete">Del</a>
-              <a href="/editor/{{p._id}}" title="edit" class="edit">Edit</a>
+              <a href="/editor/{{p._id}}" title="edit" class="edit">edit</a>
+              <!-- <a ng-if="!p.submitted && !p.published" ng-click="delete(p._id)" title="delete" class="delete">delete</a> -->
             </td>
           </tr>
         </tbody>
@@ -83,27 +66,37 @@
 
   </section>
 
-            <!-- <td class="tip"><post-step-helper post="p"></post-step-helper></td> -->
-<!--               <a ng-if="p.submitted" href="https://github.com/{{p.repo}}/blob/edit/post.md" target="_blank" class="gh-white"></a>
- --><!--               <a ng-if="p.forked" href="https://github.com/{{session.social.gh.username}}/{{p.slug}}/blob/edit/post.md" target="_blank" class="gh-white fork"></a> -->
-              <!-- <a ng-if="!p.mine" ng-click="deleteFork(p._id)" title="delete fork" class="delete">x</a> -->
 
   <section id="setup">
-
     <h3>Setup</h3>
-<!--
-    <div ng-if="drafts && permissions" class="alert alert-success">
-      Looks like you're good for now. More features and instructions are on their way.
-    </div> -->
 
     <section ng-if="drafts.length == 0 && mine == 0" class="alert alert-warning">
       <h4>var firstUp = createDraft(yourFirstPost)</h4>
       <p>Hit <a href="/new" target="_self">New post</a> in the top menu to create
       draft.</p>
     </section>
+    <section ng-if="forked.length > 0">
+      <h5><em>{{forked.length}} forks</em>.</h5>
+    </section>
+    <section ng-if="reviewed.length > 0">
+      <h5><em>{{reviewed.length}} reviews</em> by you.</h5>
+    </section>
+
     <section ng-if="mine.length > 0">
-      <h5>Drafts
-        <em>{{drafts.length}} in progress.</em> Why not start another?
+
+      <h5 ng-if="published.length > 0">
+        <em>{{published.length}} published</em> you da man!
+      </h5>
+
+      <h5 ng-if="inreview.length > 0">
+        <em>{{inreview.length}} submitted</em> for community review. Keep em' reviews coming.
+      </h5>
+
+      <h5 ng-if="drafts.length > 1">
+        <em>{{drafts.length}} draft(s) in progress.</em> Don't be shy.. start another!
+      </h5>
+      <h5 ng-if="drafts.length < 2">
+        <em>Posts in draft are 100% delete and editable.</em> No hard in creating a few to hone in on the right idea!
       </h5>
     </section>
 
@@ -120,19 +113,6 @@
     <section ng-if="scopes"><h5>GitHub Permissions <em>Look'in good</em></h5></section>
 
   </section>
-
-<!--
-  <section ng-if="!session._id && recent" id="recent" class="postTiles">
-    <h3 class="underline">Newest published posts <a href="/posts" target="_self" class="btn btn-sm btn-inverse">See all</a></h3>
-    <post-tile post="p" ng-repeat="p in recent"></post-tile>
-  </section>
-
-  <section ng-if="session._id && recent" id="inreview" class="postTiles inreview">
-    <h3 class="underline">Newest posts in review <a href="/posts/in-community-review" target="_self" class="btn btn-sm btn-inverse">See all</a></h3>
-    <post-tile post="p" ng-repeat="p in recent"></post-tile>
-  </section>
--->
-
 
 </div>
 
@@ -164,3 +144,26 @@
 
 
 </section>
+
+
+<!--
+  <section ng-if="!session._id && recent" id="recent" class="postTiles">
+    <h3 class="underline">Newest published posts <a href="/posts" target="_self" class="btn btn-sm btn-inverse">See all</a></h3>
+    <post-tile post="p" ng-repeat="p in recent"></post-tile>
+  </section>
+
+  <section ng-if="session._id && recent" id="inreview" class="postTiles inreview">
+    <h3 class="underline">Newest posts in review <a href="/posts/in-community-review" target="_self" class="btn btn-sm btn-inverse">See all</a></h3>
+    <post-tile post="p" ng-repeat="p in recent"></post-tile>
+  </section>
+-->
+
+<!--   <section ng-if="forked" class="notifications">
+    <div id="postsubmitted">
+      <h2>Mother Forker!</h2>
+      <h3><a href="https://github.com/{{session.social.gh.username}}/{{forked.slug}}" target="_blank">{{ forked.title }}</a></b> has been forked to your github account.</h3>
+      <img src="/static/img/pages/posts/authoring-flow-review.png" />
+      <p>You can <b>edit</b> your forked version of the post via the AirPair editor. When you're happy with your changes, send a pull request from GitHub.com</p>
+    </div>
+  </section>
+ -->

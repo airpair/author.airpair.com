@@ -164,8 +164,8 @@ section#posteditor {
     .btn-preview { .btn;.btn-action }
     .btn-publish { .btn;.btn-action }
     .btn-submit { .btn;.btn-action }
-    .btn-sync { .btn;background-image:url('@{static}/img/icons/gh-white.png');background-size:34%;background-position:3px 3px }
-    .btn-pr { .btn;background-image:url('@{static}/img/author/pr-white.png');background-size:24%;background-position:2px 2px }
+    .btn-sync { .btn;.btn-action;background-image:url('@{static}/img/icons/gh-white.png');background-size:34%;background-position:3px 3px }
+    .btn-pr { .btn;.btn-action;background-image:url('@{static}/img/author/pr-white.png');background-size:24%;background-position:2px 2px }
     .commitmsg {
       float:right;
       clear:right;
@@ -256,4 +256,12 @@ section#posteditor {
   //     left:700px;
   //   }
   // }
+}
+
+section#postsubmit {
+  img.flow { max-width:620px;height:100px;margin:20px  }
+  .submitRepo {
+    .valid { color:green }
+    .invalid { color:@error }
+  }
 }

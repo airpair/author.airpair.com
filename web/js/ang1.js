@@ -21,6 +21,7 @@ require('./.lib/ang.v1/util/filters.js')
 require('./ang.v1/services/_index.js')
 
 require('./library/module.js')
+require('./activity/module.js')
 require('./edit/module.js')
 
 
@@ -38,7 +39,8 @@ angular.module("Author", [
 
   //-- App modules (namespaces)
   'Author.Library',
-  'Author.Edit'
+  'Author.Edit',
+  'Author.Activity',
 
 ])
 
