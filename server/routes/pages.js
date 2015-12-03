@@ -13,8 +13,8 @@ module.exports = (app,mw) => {
     mw.$.serverPage)
 
 
-  app.get('/preview/:id',
-    mw.$.authd, mw.$.populateMe, function(req, res, next) {
+  // app.get('/preview/:id',
+    // mw.$.authd, mw.$.populateMe, function(req, res, next) {
     // $callSvc(API.Posts.svc.getByIdForPreview, req)(req.params.id, (e,r) => {
     //   if (!r) return res.redirect('/posts/me')
     //   if (!_.idsEqual(r.by.userId,req.user._id) &&
@@ -25,20 +25,19 @@ module.exports = (app,mw) => {
     //   req.post = r
     //   next()
       // })
-      next();
-    },
-    mw.$.postPage)
-  // ,app.renderHbsViewData('post', null, (req, cb) => cb(null, req.post)))
+      // next();
+    // },
+    // mw.$.postPage)
+
 
   app.get(['/library',
-           // '/drafts',
            // '/in-review',
-           // '/published',
            '/new',
            '/editor/*',
            '/post-details/*',
            '/submit/*',
            '/preview/*',
+           '/activity',
            '/activity/post/*'
            // '/forked',
            // '/reviewd',

@@ -22,7 +22,7 @@ module.exports = (DAL, Data, Shared, {author}) => ({
       return `Double '--' in slugs is too ugly for your post's url`
 
     if (!original.published) {
-      var wcount = Shared.posts.wordcount(original.md)
+      var wcount = Shared.TypesUtil.String.wordcount(original.md)
       if (wcount < 400)
         return `Post word count [${wcount}] less than minimum of 500 for peer review`
       //-- Consider checking tags / assetUrl ?

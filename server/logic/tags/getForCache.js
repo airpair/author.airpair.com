@@ -1,7 +1,7 @@
-module.exports = ({Tag}, {Project}, Shared) => ({
+module.exports = ({Tag}, {Project, Opts}, Shared) => ({
 
   exec(cb) {
-    Tag.getManyByQuery({}, {select:Project.fields.cached}, cb)
+    Tag.getManyByQuery({}, Opts.cached, cb)
   }
 
 })

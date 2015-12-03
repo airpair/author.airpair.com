@@ -1,10 +1,13 @@
 module.exports = (app, mw) => {
 
+
+
   app.API('tags')
     .middleware('cachedTags')
     .get ({ use: 'authd' },
           { search:               'query.q'           })
     .end('apiJson')
+
 
 
   app.API('me')
@@ -14,12 +17,24 @@ module.exports = (app, mw) => {
     .end()
 
 
+
+  app.API('activity')
+    .params('post:Post')
+    .middleware('authd cachedTags')
+    .get ({ getPost:              'post',
+            getRecent:            '',                 })
+            // getSubmitted:         ''
+            // getTag:               ''
+    .end()
+
+
+
+  // app.API('post')  // plan to rename to "post" api
   app.API('posts')
     .params('post:Post')
     .middleware('authd cachedTags populateMe')
     .post({ create:               'body'              })
     .get ({ getDetails:           'post',
-            getActivity:          'post',
             getMarkdown:          'post',
             getPreview:           'post'              })
     .get ({ use: 'populateScopes' },
@@ -32,5 +47,7 @@ module.exports = (app, mw) => {
             updateSubmit:         'post body.slug'    })
     .delete({ delete:             'post'              })
     .end()
+
+
 
 }

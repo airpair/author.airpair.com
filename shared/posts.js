@@ -25,14 +25,6 @@ var shared = {
   },
 
 
-  wordcount(md, mod) {
-    var words = md.match(/\w+/g)
-    words = words.filter(word => word.length>1)
-    var count = words.length
-    return mod ? count-(count%mod) : count
-  },
-
-
   previewable(post) {
     return post.tags.length > 0 &&
            post.assetUrl
