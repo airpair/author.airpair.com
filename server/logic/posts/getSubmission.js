@@ -18,7 +18,7 @@ module.exports = ({Post}, Data, Shared, {author}) => ({
     if (slug && !posts.validSlug(slug))
       return `Slug[${slug}] not valid`
 
-    if (slug.length > 50)
+    if (slug && slug.length > 50)
       return `Slug[${slug}] too long to be used as a repo name`
 
   },
