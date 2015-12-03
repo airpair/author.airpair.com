@@ -5,7 +5,7 @@ UNIQUIFY_USER = (seedKey) ->
 
 CREATOR = (login, done) -> (user) ->
   DB.Collections.users.insert user, (e, r) ->
-    if (e) then $log('DB.insert.user', e)
+    if (e) then $log("DB.insert.user[#{user.key}]", e)
     if login
       LOGIN user, (session) ->
         done session, user.key

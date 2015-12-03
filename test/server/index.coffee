@@ -1,29 +1,35 @@
-envFile             = require('path').join(__dirname,'app.test.env')
-overrides           = require('../../server/app.json')
-overrides.auth.test = {
-  loginFnName: 'loginAuthor'
-}
+process.env.LOG_APP              = '{{undefine}}'   # app load times
+process.env.LOG_AUTH             = '{{undefine}}'   # auth activity
+process.env.LOG_CONF_ROUTES      = '{{undefine}}'   # routes/urls on load
+process.env.LOG_MW_TRACE         = '{{undefine}}'   # middleware execution
+process.env.LOG_MW_API           = '{{undefine}}'   # json reponses
+process.env.LOG_MW_PAGE          = '{{undefine}}'   # GET text/html
+process.env.LOG_MW_VALID         = '{{undefine}}'   # validation error output
+process.env.LOG_MW_UNAUTHORIZED  = '{{undefine}}'  # unauthorized requests
+process.env.LOG_WRPR             = '{{undefine}}'   # all wrappers out
+process.env.LOG_WRPR_THEME_INIT  = '{{undefine}}'   # wrapper initialize calls
+process.env.LOG_WRPR_GHCALL      = 'white'          # gitpublisher calls
+process.env.LOG_WRPR_GHRETRY     = 'magenta'        # gitpublisher network fail / retries
+process.env.LOG_WRPR_GHSTEP      = '{{undefine}}'   # gitpublisher serialization of complex
 
-# overrides.model.mongoUrl = 'mongodb://localhost/consult-airpair-test'
-process.env.LOG_CONF_THEME_ROUTES = '{{undefine}}'  # hide routes showing on load
-process.env.LOG_AUTH = '{{undefine}}'  # hide auth output
-process.env.LOG_MW_THEME_TRACE = '{{undefine}}'  # hide login output
-process.env.LOG_MW_THEME_API = '{{undefine}}'  # hide login output
-# process.env.LOG_MW_THEME_PAGE = '{{undefine}}'  # hide login output
-# process.env.LOG_MW_THEME_VALID = '{{undefine}}'  # hide login output
-process.env.LOG_WRPR = '{{undefine}}'  # hide wrappers
 
-{config}         = require('meanair-server').Setup('test', overrides, envFile)
-# $log('config', config.log)
+Config           = require('../../server/app.json')
+Config.auth.test =
+  loginFnName:   'loginAuthor'
 
-global.timeSeed = -> moment().format('X')
+dotEnv           = require('path').join(__dirname,'app.test.env')
+{config}         = require('meanair-server').Setup('test', Config, dotEnv)
 
 
 login = (req, cb) ->
   profile = FIXTURE.users[req.body.key].auth.gh
-  config.auth.test.loginFn.call req, 'github', profile, {token:'test'}, cb
+  token = _.get(profile,"tokens.#{config.auth.appKey}.token") || "test"
+  config.auth.test.loginFn.call req, 'github', profile, {token}, cb
 
 
-SCREAM          = require('meanair-scream')
+SCREAM           = require('meanair-scream')
 SCREAM(__dirname, config, {login}).run()
 
+
+require('./helpers/data')
+require('./helpers/expects')

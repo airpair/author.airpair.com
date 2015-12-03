@@ -5,7 +5,7 @@ UNIQUIFY_POST = (seedKey) ->
 
 ENSURE_AUTHOR = (key, cb) ->
   if key
-    DB.ensureDoc 'User', key, -> LOGIN key, cb
+    DB.ensureDoc 'User', FIXTURE.users[key], -> LOGIN key, cb
   else
     STORY.newUser 'tst1', { ghKey: 'author1', login: true }, cb
 
@@ -20,7 +20,6 @@ module.exports = (key, opts, done) ->
 
   {data,author,submit,publish,fork,review} = opts
   d = UNIQUIFY_POST(key)
-
   ENSURE_AUTHOR author, (s) ->
     post =
       _id:          newId()

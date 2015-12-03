@@ -54,6 +54,7 @@ internals = ->
     @gpSTUB('repos.createFile','1449060354_readme')
     @gpSTUB('gitdata.createReference','1449060354_editBranch')
     @gpSTUB('orgs.createTeam','1449067207')
+    @gpSTUB('user.editOrganizationMembership','1449067207')
     @gpSTUB('orgs.addTeamMembership','1862308_airpairtest1')
     # @gpSTUB('repos.createFile','repos_createFile_1449060354_postMD')
 
