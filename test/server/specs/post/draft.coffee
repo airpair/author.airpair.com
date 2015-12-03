@@ -2,26 +2,26 @@ creating = ->
 
 
   IT "Fails for anonymous user", ->
-    title = "Post Anon Create Test #{timeSeed()}"
+    title = "Post Anon Create Test #{@timeSeed}"
     POST "/posts", {title}, { authenticated: false, status: 401 }, (e) ->
       DONE()
 
 
   IT "Fails without title", ->
-    title = "Post Create with no social Test #{timeSeed()}"
+    title = "Post Create with no social Test #{@timeSeed}"
     STORY.newUser 'jkx', (s) ->
       POST "/posts", {}, { status: 403 }, (err) ->
-        expectContains(err.message, "Title required")
+        EXPECT.contains(err.message, "Title required")
         DONE()
 
 
   IT "Create with title", ->
-    title = "Post Create with no social Test #{timeSeed()}"
+    title = "Post Create with no social Test #{@timeSeed}"
     STORY.newUser 'tbau', (s) ->
       POST "/posts", { title }, (p0) ->
-        expectIdsEqual(p0.by.userId, s._id)
+        EXPECT.equalIds(p0.by.userId, s._id)
         expect(p0.by.name).to.equal(s.name)
-        expectContains(p0.by.bio, 'Member of Thiel Foundation Summi')
+        EXPECT.contains(p0.by.bio, 'Member of Thiel Foundation Summi')
         expect(p0.by.avatar).to.equal("https://avatars.githubusercontent.com/u/11258947?v=3")
         # expect(p0.created).to.exist
         expect(p0.published).to.be.undefined
@@ -41,7 +41,7 @@ deleting = ->
 
 
   IT "Delete as author", ->
-    title = "Post delete as author #{timeSeed()}"
+    title = "Post delete as author #{@timeSeed}"
     STORY.newUser 'jkg', (s) ->
       POST "/posts", { title }, (p0) ->
         expect(p0._id).to.exist
@@ -54,7 +54,7 @@ deleting = ->
 
 
   IT "Delete as editor", ->
-    title = "Post delete as non-author #{timeSeed()}"
+    title = "Post delete as non-author #{@timeSeed}"
     STORY.newUser 'tst8', (s) ->
       POST "/posts", { title }, (p0) ->
         expect(p0._id).to.exist
@@ -69,7 +69,7 @@ deleting = ->
 
 
   IT "Fails as non author (or editor)", ->
-    title = "Post delete as non-author or editor #{timeSeed()}"
+    title = "Post delete as non-author or editor #{@timeSeed}"
     STORY.newUser 'jky', (s) ->
       POST "/posts", { title }, (p0) ->
         DB.docById 'Post', p0._id, (p0DB) ->
@@ -86,14 +86,14 @@ editing = ->
 
 
   IT "Edit and preview as author", ->
-    title = "Post edit and preview in draft Test #{timeSeed()}"
+    title = "Post edit and preview in draft Test #{@timeSeed}"
     STORY.newUser 'stpv', (s) ->
       POST "/posts", {title}, (p0) ->
         expect(p0.reviews).to.be.undefined
         expect(p0.md).to.be.undefined
         expect(p0.slug).to.be.undefined
         DB.docById 'Post', p0._id, (p0DB) ->
-          expectIdsEqual(p0._id, p0DB._id)
+          EXPECT.equalIdAttrs(p0, p0DB)
           expect(p0DB.md).to.equal('new')
           expect(p0DB.slug).to.be.undefined
           expect(p0DB.url).to.be.undefined
@@ -113,17 +113,17 @@ editing = ->
               DB.docById 'Post', p0._id, (p1DB) ->
                 expect(p1DB.md).to.equal(updatedMD)
                 GET "/posts/preview/#{p0._id}", { status: 403 }, (err) ->
-                  expectContains(err.message, 'until it has tags')
+                  EXPECT.contains(err.message, 'until it has tags')
                   p0.tags = [{"_id" : ObjectId("514825fa2a26ea020000001f")}]
                   PUT "/posts/details/#{p0._id}", p0, (p2) ->
                     expect(p2.body).to.be.undefined
                     GET "/posts/preview/#{p0._id}", (p2preview) ->
-                      expectIdsEqual(p2preview._id, p0._id)
+                      EXPECT.equalIdAttrs(p2preview, p0)
                       expect(p2preview.md).to.be.undefined
                       expect(p2preview.references[1]).to.equal('this is a reference')
                       expect(p2preview.body).to.exist
-                      expectContains(p2preview.body, '<h2 id=\"updated-md-heading\">updated md heading</h2>')
-                      expectContains(p2preview.toc, 'updated md heading</a></li>')
+                      EXPECT.contains(p2preview.body, '<h2 id=\"updated-md-heading\">updated md heading</h2>')
+                      EXPECT.contains(p2preview.toc, 'updated md heading</a></li>')
                       DONE()
 
 
@@ -167,7 +167,7 @@ updating = ->
           expect(p1._id).to.exist
           expect(p1.title).to.equal(title)
           expect(p1.tags.length).to.equal(0)
-          expectIdsEqual(p1.by.userId, FIXTURE.users.jkg._id)
+          EXPECT.equalIds(p1.by.userId, FIXTURE.users.jkg._id)
           p1.tags = tags
           expect(p1.tags.length).to.equal(2)
           expect(p1.tags[0].name).to.equal('ExpressJS')
@@ -181,7 +181,7 @@ updating = ->
             expect(p2.tags[0].slug).to.equal('express')
             expect(p2.tags[0].sort).to.equal(0)
             expect(p2.tags[1].sort).to.equal(1)
-            updatedTitle = "updated test title #{timeSeed()}"
+            updatedTitle = "updated test title #{@timeSeed}"
             p2.title = updatedTitle
             PUT "/posts/details/#{p0._id}", p2, (p3) ->
               expect(p3.title).to.equal(updatedTitle)

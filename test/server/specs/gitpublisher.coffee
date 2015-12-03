@@ -4,31 +4,31 @@ internals = ->
   beforeEach ->
     @gpSTUB = (op, fixtureKeySuffix) ->
       fixtureKey = 'gh_'+op.replace('.','_')+'_'+fixtureKeySuffix
-      STUB.wrapper('GitPublisher').api(op).returnFix(fixtureKey)
+      STUB.wrapper('GitPublisher').api(op).fix(fixtureKey)
 
 
   IT 'Fails without token', ->
     {tst1} = FIXTURE.users
     Wrappers.GitPublisher.getScopes tst1, (e,r) ->
       expect(r).to.be.undefined
-      expectContains(e.message, "token not present")
+      EXPECT.contains(e.message, "token not present")
       DONE()
 
 
   IT 'Fails with invalid token', ->
-    STUB.wrapper('GitPublisher').api('user.get').returnParams(FIXTURE.wrappers.gh_user_bad_creds)
+    STUB.wrapper('GitPublisher').api('user.get').params(FIXTURE.wrappers.gh_user_bad_creds)
     tst5 = FIXTURE.clone('users.tst5')
     tokens = {}
     tokens[config.auth.appKey] = { token: 'asdfasdfasdfasdf' }
     tst5.auth.gh.tokens = tokens
     Wrappers.GitPublisher.getScopes tst5, (e,r) ->
       expect(r).to.be.undefined
-      expectContains(e.message, "GitHub token auth failed")
+      EXPECT.contains(e.message, "GitHub token auth failed")
       DONE()
 
 
   IT 'Returns "public_repo" and "user" for valid token', ->
-    STUB.wrapper('GitPublisher').api('user.get').returnFix('gh_user_scopes')
+    STUB.wrapper('GitPublisher').api('user.get').fix('gh_user_scopes')
     STORY.newUser 'tst1', { ghKey: 'author1' }, (key) ->
       user = FIXTURE.users[key]
       Wrappers.GitPublisher.getScopes user, (e,r,payload) ->
@@ -60,10 +60,10 @@ internals = ->
 
     STORY.newUser 'tst1', { ghKey: 'author1' }, (key) ->
       user = FIXTURE.users[key]
-      repo = "steps-#{timeSeed()}"
+      repo = "steps-#{@timeSeed}"
       postId = ObjectId()
-      postMD = "## steps test on #{timeSeed()}"
-      readmeMD = "reamed generated #{timeSeed()}"
+      postMD = "## steps test on #{@timeSeed}"
+      readmeMD = "reamed generated #{@timeSeed}"
       Wrappers.GitPublisher.setupPostRepo user, repo, postId, postMD, readmeMD, (e,r) ->
         expect(e).to.be.null
         expect(r).to.exist
@@ -71,7 +71,7 @@ internals = ->
         expect(r.owner).to.equal(org)
         expect(r.authorTeamId).to.exist
         expect(r.author).to.equal(FIXTURE.githubusers['author1'].username)
-        expectContains(r.authorTeamName, repo)
+        EXPECT.contains(r.authorTeamName, repo)
         DONE()
 
 
