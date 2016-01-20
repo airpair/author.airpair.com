@@ -1,21 +1,17 @@
-function run(config, done) {
+function run(config, {MAServer,tracking,done}) {
 
   global.config         = config
 
-  var app               = require('meanair-server').App.init(config, done)
+  var analytics         = MAServer.Analytics(config, tracking)
+  var app               = MAServer.App(config, done)
   var model             = require('meanair-model')(done)
-
-  if (config.env == 'dev')
-    app.meanair.lib({livereload:require('connect-livereload')})
-
 
   model.connect(() =>
 
     app.meanair.lib({passport:require('passport')})
-               .set(model)
+               .set(model, {analytics})
                .merge(require('meanair-auth'))
-               .use(config.middleware)
-               .serve(config.routes)
+               .chain(config.middleware, config.routes)
                .run()
 
   )

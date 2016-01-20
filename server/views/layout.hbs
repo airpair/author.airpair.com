@@ -4,16 +4,33 @@
   <title>author.airpair</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="stylesheet" href="{{bundle.libsCss}}" type="text/css" />
-  <link rel="stylesheet" href="{{bundle.appCss}}" type="text/css" />
+  <meta name="robots" content="noindex, nofollow">{{#if css}}
+  <link rel="stylesheet" href="{{css.lib}}" type="text/css" />
+  <link rel="stylesheet" href="{{css.app}}" type="text/css" />{{/if}}
+  <link rel="apple-touch-icon" sizes="57x57" href="//author.airpa.ir/ico/apple-icon-57x57">
+  <link rel="apple-touch-icon" sizes="60x60" href="//author.airpa.ir/ico/apple-icon-60x60">
+  <link rel="apple-touch-icon" sizes="72x72" href="//author.airpa.ir/ico/apple-icon-72x72">
+  <link rel="apple-touch-icon" sizes="76x76" href="//author.airpa.ir/ico/apple-icon-76x76">
+  <link rel="apple-touch-icon" sizes="114x114" href="//author.airpa.ir/ico/apple-icon-114x114">
+  <link rel="apple-touch-icon" sizes="120x120" href="//author.airpa.ir/ico/apple-icon-120x120">
+  <link rel="apple-touch-icon" sizes="144x144" href="//author.airpa.ir/ico/apple-icon-144x144">
+  <link rel="apple-touch-icon" sizes="152x152" href="//author.airpa.ir/ico/apple-icon-152x152">
+  <link rel="apple-touch-icon" sizes="180x180" href="//author.airpa.ir/ico/apple-icon-180x180">
+  <link rel="icon" type="image/png" sizes="192x192"  href="//author.airpa.ir/ico/android-icon-192x192">
+  <link rel="icon" type="image/png" sizes="32x32" href="//author.airpa.ir/ico/favicon-32x32">
+  <link rel="icon" type="image/png" sizes="96x96" href="//author.airpa.ir/ico/favicon-96x96">
+  <link rel="icon" type="image/png" sizes="16x16" href="//author.airpa.ir/ico/favicon-16x16">
+  <link rel="manifest" href="//author.airpa.ir/json/manifest">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="//author.airpa.ir/ico/ms-icon-144x144">
+  <meta name="theme-color" content="#ffffff">
   <base href="/" />
 </head>
 <body>
 
-<header>
+<header class="author">
   <div>
-    <a href="/" tile="author.airpair.com - social authoring tools for software bloggers" target="_self" class="author"></a>
+    <a href="/" tile="author.airpair - social authoring tools for software bloggers" target="_self" class="author"></a>
     <ul>
       <li class="lb"><a href="/new" target="_self">Write</a></li>
       <li class="lb"><a href="/activity" target="_self">Review</a></li>
@@ -27,14 +44,26 @@
 <div class="main-wrap">
   {{{body}}}
 </div>
-<hr />
 
 {{#if authenticated}}
-
   <footer>
     <ul>
+{{#if about}}{{#if about.name}}
+      <li class="nm"><span class="name">{{about.name}}</span></li>
+{{/if}}{{#if about.version}}
+      <li class="vr">v<span class="version">{{about.version}}</span></li>
+{{/if}}{{#if about.author}}
+      <li class="cp">&copy; 2016 {{about.author}}</li>
+{{/if}}{{#if about.bugs}}
+      <li class="bg"><span class="bugs"><a href="{{about.bugs.url}}" target="_blank">Report bug</a></span></li>
+{{/if}}{{#if about.privacy}}
+      <li class="pr"><a href="{{about.privacy.url}}" target="_blank" class="pp">Privacy</a></li>
+{{/if}}{{#if about.terms}}
+      <li class="tu"><a href="{{about.terms.url}}" target="_blank" class="tos">Terms of Service</a></li>
+{{/if}}{{#if about.contact}}
+      <li class="ct"><a href="{{about.contact.url}}" target="_blank" class="ctc">Contact</a></li>
+{{/if}}{{/if}}
       <li><a href="/logout" class="logout" target="_self">Logout</a></li>
-      <li>&copy; 2016 airpair, inc.</li>
     </ul>
   </footer>
 {{/if}}

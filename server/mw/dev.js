@@ -1,18 +1,5 @@
 module.exports = (app, mw) => {
 
-  mw.cache('cachedTags', mw.data.cacheReady('tags'))
-  mw.cache('limit2mb', mw.res.jsonLimit('2mb'))
-  mw.cache('populateAuthorExpert', mw.data.populate('expert:post:by.userId','userId'))
-
-  mw.cache('populateScopes', (req, res, next) => {
-    Wrappers.GitPublisher.getScopes(req.user, (e,scopes) => {
-      req.user.auth.gh.scopes = scopes ? scopes.github : []
-      next(e)
-    })
-  })
-
-
-
   if (global.config.env == 'dev') {
     mw.cache('warnings', (req, res, next) => {
       var warn = []
@@ -30,6 +17,5 @@ module.exports = (app, mw) => {
 
     app.use(mw.$.warnings)
   }
-
 
 }

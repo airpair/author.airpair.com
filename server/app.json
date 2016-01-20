@@ -15,34 +15,38 @@
   },
   "http": {
     "static": {
-      "bundle": {
-        "appCss":             "/css/app.css",
-        "appJs":              "/js/ang1.js",
-        "libsCss":            "/css/libs.css"
+      "bundles": {
+        "css/lib.css":         "/static.airpair.com/css/libs.css",
+        "css/app.css":         "css/app.css",
+        "js/ang1.js":          "js/ang1.js"
       },
-      "dirs":                 "public,public/bundle"
+      "dirs":                  "public,static"
     }
   },
   "log": {
-    "model":                  false,
-    "auth":                   { "link":"green" },
-    "wrpr":                   { "ghcall":"cyan", "ghretry":"yellow", "ghstep":"white" }
+    "model":                   false,
+    "auth":                    { "link":"green" },
+    "wrpr":                    { "ghcall":"cyan", "ghretry":"yellow", "ghstep":"white" }
   },
   "middleware": {
-    "session":                { "authedData": "_id name" },
-    "plugins":                ["res.slow","livereload"]
+    "session":                 { "authedData": "_id name" },
+    "plugins":                 ["res.slow","livereload"]
   },
   "model": {
-    "sessionStore":           { "collection": "sessions_author" },
+    "analytics": {
+      "mongoUrl":              "{{required}}"
+    },
+    "session":                 { "collection": "sessions_author" },
     "cache": {
-      "tags":                 { "getter": "tags.getForCache" }
+      "tags":                  { "getter": "tags.getForCache" }
     }
   },
   "wrappers": {
+    "dirs":                    "wrappers",
     "gitPublisher": {
-      "adminToken":           "{{required}}",
-      "org":                  "{{required}}",
-      "retry":                { "delay": 1000, "max": 3 }
+      "adminToken":            "{{required}}",
+      "org":                   "{{required}}",
+      "retry":                 { "delay": 1000, "max": 3 }
     }
   }
 }

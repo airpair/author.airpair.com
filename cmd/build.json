@@ -6,7 +6,7 @@
   },
   "dirs": {
     "web":                   "web",
-    "dev":                   "web/public/bundle",
+    "dev":                   "web/public",
     "dist":                  "web/dist",
     "server":                "server"
   },
@@ -17,7 +17,7 @@
   "dist":                    {},
   "less": {
     "src":                   "css",
-    "dest":                  "public/bundle/css",
+    "dest":                  "public/css",
     "imports":               ["css"]
   },
   "nodemon": {
@@ -37,8 +37,8 @@
     "livereload":            { "port": 35729 },
     "path": {
       "livereload":          ["server/views/*",
-                              "web/public/bundle/css/*",
-                              "web/public/bundle/js/*"]
+                              "web/public/css/*",
+                              "web/public/js/*"]
     }
   },
   "browserify": {
@@ -48,7 +48,7 @@
       "es6ify":              { "exclude": "components" }
     },
     "src":                   "web/js",
-    "dest":                  "public/bundle",
+    "dest":                  "public",
     "entries":               ["ang1.js"]
   }
 }

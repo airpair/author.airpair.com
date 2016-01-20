@@ -11,8 +11,8 @@ require('../components/ace-builds/src-min-noconflict/ext-language_tools.js');
 require('../components/ace-builds/src-min-noconflict/mode-markdown.js');
 require('../components/ace-builds/src-min-noconflict/theme-dawn.js');
 
-require('../public/js/ui-bootstrap-custom-tpls-0.14.3.js')
-require('../public/js/moment-timezone-with-data-2010-2020.js')
+require('../static/js/ui-bootstrap-custom-tpls-0.14.3.js')
+require('../static/js/moment-timezone-with-data-2010-2020.js')
 
 require('./.lib/ang.v1/directives/_index.js')
 require('./.lib/ang.v1/services/_index.js')
@@ -53,8 +53,8 @@ angular.module("Author", [
 .factory('$postsUtil', () => require('../../shared/posts.js'))
 .factory('Shared', () => Object.assign(_,
     //-- Darn hack not sure what's going on
-    require('../js/.lib/meanair/object.js'),
-    require('../js/.lib/meanair/string.js'),
-    require('../js/.lib/meanair/date.js')
+    require('../static/js/.lib/object.js'),
+    require('../static/js/.lib/string.js'),
+    require('../static/js/.lib/date.js')
   )
 )

@@ -3,7 +3,7 @@ creating = ->
 
   IT "Fails for anonymous user", ->
     title = "Post Anon Create Test #{@timeSeed}"
-    POST "/posts", {title}, { authenticated: false, status: 401 }, (e) ->
+    POST "/posts", {title}, { authenticated: false, status: 403 }, (e) ->
       DONE()
 
 

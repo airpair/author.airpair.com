@@ -1,6 +1,6 @@
 {
   "name": "author.airpair.com",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "homepage": "https://author.airpair.com",
   "author": "airpair inc.",
   "description": "Open sourced authoring (blog publishing) features of airpair.com",
@@ -12,26 +12,27 @@
     "url": "https://github.com/airpair/author.airpair.com/issues"
   },
   "license": "ISC",
+  "engines": {
+    "node": "4.1.2",
+    "npm": "2.14.4"
+  },
   "scripts": {
     "start": "cmd/start",
     "test": "cmd/test"
   },
   "dependencies": {
     "github": "0.2.4",
-    "handlebars": "^2.0.0",
     "htmlparser2": "3.8.3",
-    "marked": "0.3.5",
-    "meanair-auth": "0.6.1",
-    "meanair-model": "0.6.x",
-    "meanair-server": "0.6.1",
-    "meanair-shared": "0.6.1",
+    "meanair-auth": "0.6.3",
+    "meanair-model": "0.6.4",
+    "meanair-server": "0.6.3",
+    "meanair-shared": "0.6.2",
     "passport": "0.3.0"
   },
   "devDependencies": {
     "coffee-script": "1.9.3",
-    "connect-livereload": "0.5.3",
     "gulp": "3.9.0",
     "meanair-build": "0.6.x",
-    "meanair-scream": "0.6.1"
+    "meanair-scream": "0.6.3"
   }
 }

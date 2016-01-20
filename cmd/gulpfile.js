@@ -31,12 +31,16 @@ require('meanair-build')(gulp, cfg).configure({
     //   browserify.dest = cfg.dirs.dist
     // else
     browserify.dest = join(cfg.dirs.web, browserify.dest)
-    browserify.watch = !!cmd.match(/watch|dev/)
-    browserify.dist = !!cmd.match(/dist/)
+    browserify.watch = cmd.match(/(watch|dev)/i) != null ||
+                       cmd == 'default' || cfg.default.indexOf('watch') != -1
+    browserify.dist = cmd.match(/dist/i) != null
   },
   watch: watch => {
     watch.path.less = cfg.less.imports
-    watch.path.browserify = join(cfg.dirs.web, 'js', '**/*')
+    watch.path.browserify = [
+      join(cfg.dirs.web, 'js', '**/*.js'),
+      join(cfg.dirs.web, 'js', '**/*.html')
+    ]
     watch.path.livereload = watch.path.livereload.map(path => join(rootDir, path))
   },
   dist: dist => {

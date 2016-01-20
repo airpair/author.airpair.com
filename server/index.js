@@ -1,10 +1,8 @@
-var env       = process.env.ENV || 'dev'
+var MAServer  = require('meanair-server')
+var config    = MAServer.Config(__dirname, process.env.ENV || 'dev', true)
 
-
-//-- API docs & examples (soon :p) at => airpair.com/meanair/config
-var Config    = require('./app.json')
-var dotEnv    = require('path').join(__dirname,`app.${env}.env`)
-var {config}  = require('meanair-server').Setup(Config, env, dotEnv)
-
-
-require('./app').run(config, e => e ? $log('APP.ERROR'.red, e) : '')
+require('./app').run(config, {
+  MAServer,
+  tracking: require('./app.track'),
+  done: e => e ? $log('APP.ERROR'.red, e) : ''
+})

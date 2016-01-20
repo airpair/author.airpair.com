@@ -26,7 +26,8 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 web/components
-web/public/bundle
+web/public/css
+web/public/js
 
 # Sym lnks
 .lib*
