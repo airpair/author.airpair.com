@@ -1,4 +1,5 @@
 {
+  "about":                     "package.json",
   "auth": {
     "appKey":                  "athr",
     "oauth": {

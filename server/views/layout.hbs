@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">{{#if css}}
+  <link rel="stylesheet" href="https://static.airpair.com/css/fonts.css" type="text/css" />
   <link rel="stylesheet" href="{{css.lib}}" type="text/css" />
   <link rel="stylesheet" href="{{css.app}}" type="text/css" />{{/if}}
   <link rel="apple-touch-icon" sizes="57x57" href="//author.airpa.ir/ico/apple-icon-57x57">
@@ -20,7 +21,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="//author.airpa.ir/ico/favicon-32x32">
   <link rel="icon" type="image/png" sizes="96x96" href="//author.airpa.ir/ico/favicon-96x96">
   <link rel="icon" type="image/png" sizes="16x16" href="//author.airpa.ir/ico/favicon-16x16">
-  <link rel="manifest" href="//author.airpa.ir/json/manifest">
+  {{!-- <link rel="manifest" href="//author.airpa.ir/json/manifest"> --}}
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="//author.airpa.ir/ico/ms-icon-144x144">
   <meta name="theme-color" content="#ffffff">
@@ -32,11 +33,19 @@
   <div>
     <a href="/" tile="author.airpair - social authoring tools for software bloggers" target="_self" class="author"></a>
     <ul>
-      <li class="lb"><a href="/new" target="_self">Write</a></li>
-      <li class="lb"><a href="/activity" target="_self">Review</a></li>
+{{#if authenticated}}
+      <li class="wr min640"><a href="/library" target="_self">Write</a></li>
+      <li class="rv "><a href="/review" target="_self">Review</a></li>
+      <li class="fr min640"><a href="/forks" target="_self">Fork</a></li>
+      <li class="fl min640"><a href="/forks" target="_self">Follow</a></li>
+      {{!-- <li class="min640">|</li>
+      <li class="ov quiet min640"><a href="/100k-writing-competition" target="_self">Compete</a></li> --}}
+      {{!-- <li class="fl"><a href="/follow" target="_self">Follow</a></li> --}}
       {{!-- <li class="lb"><a href="/forks" target="_self">Fork</a></li> --}}
-      {{!-- <li class="lb"><a href="/activity" target="_self">Follow</a></li> --}}
-      <li class="lb"><a href="/library" target="_self">Collaborate</a></li>
+{{else}}
+      <li class="ov quiet min640"><a href="/about" target="_self">Overview</a></li>
+      <li class="lg"><a href="/" target="_self">Login</a></li>
+{{/if}}
     </ul>
   </div>
 </header>

@@ -28,7 +28,7 @@ newUsers = ->
                         p2details.tags = [{ "_id" : "5181d0a966a6f999a465ec0a"}]
                         PUT "/posts/details/#{p0._id}", p2details, (p3) ->
                           # PAGE "/preview/#{p0._id}", {}, (html4) ->
-                            # expectContains(html4, "First post headering</h2>")
+                            # EXPECT.contains(html4, "First post headering</h2>")
                           PAGE "/submit/#{p0._id}", {}, (html5) ->
                             GET "/posts/submission/#{p0._id}", p0, (p3submission) ->
                               expect(p3submission.submission.valid).to.be.true

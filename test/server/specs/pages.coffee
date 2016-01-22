@@ -53,18 +53,13 @@ authd = ->
     #           expect(rp.by.email).to.be.undefined
     #     DONE()
 
-  launch = ->
-
-    IT 'Renamed .meta to htmlHead', ->
-      # db.posts.update({meta:{$exists:1}},{ $rename: {meta:'htmlHead'} },{multi:true})
-      expect(false).to.be.true
-
 
 module.exports = ->
 
   before (done) ->
-    DB.ensureDoc 'User', FIXTURE.users.tst1, ->
-      done()
+    DB.removeDocs 'User', { username: FIXTURE.users.tst1.username }, (e,r) ->
+      DB.ensureDoc 'User', FIXTURE.users.tst1, (e,r) ->
+        done()
 
   DESCRIBE("ANONYMOUS", anon)
   DESCRIBE("AUTHENTICATED", authd)

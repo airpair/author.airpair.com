@@ -12,7 +12,7 @@ basic = ->
 #         LOGIN 'edap', ->
 #           PUT "/posts/publish/#{post._id}", {by:post.by, meta, tmpl: 'default'}, {}, (p2) ->
 #             expect(p2.published)
-#             expectIdsEqual(p2.publishedBy._id,data.users['edap']._id)
+#             EXPECT.equalIds(p2.publishedBy._id,data.users['edap']._id)
 #             DONE()
 
   SKIP "Fail as author without reviews", ->

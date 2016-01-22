@@ -1,10 +1,10 @@
-module.exports = ({Tag}, {Query}, Shared) => ({
+module.exports = ({Tag}, {Query,Opts}, Shared) => ({
 
   exec(term, cb) {
     var encodedTerm = '\"'+term+'\"'
     var query = { $text: { $search: encodedTerm } }
 
-    Tag.getManyByQuery(query, Query.Opts.search, (e,r) =>{
+    Tag.getManyByQuery(query, Opts.search, (e,r) =>{
       for (var t of r||[]) {
         if (t.name.toLowerCase() == term.toLowerCase())
           t.score += 5000

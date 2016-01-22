@@ -1,10 +1,11 @@
 module.exports = (app, mw) => {
 
+
   var {bundles} = config.http.static
   var about = _.pick(config.about, ['name','version','author','bugs','repository'])
   mw.cache('serverPage', mw.res.page('server', {about,bundles}))
   mw.cache('angular1Page', mw.res.page('angular1', {about,bundles}))
-  // mw.cache('postPage',          mw.res.page('post'))
+  mw.cache('postPage', mw.res.page('post', {about,bundles}))
 
 
   mw.cache('cachedTags',        mw.data.cached('tags'))

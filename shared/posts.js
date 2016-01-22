@@ -1,5 +1,14 @@
 var shared = {
 
+  status({submitted,published}) {
+    if (!submitted && !published)
+      return "draft"
+    if (submitted && !published)
+      return "submitted"
+    if (published)
+      return "published"
+  },
+
   url(post) {
     return _.get(post,'htmlHead.canonical') ||
       (post.submitted ? `https://www.airpair.com/posts/review/${post._id}`
