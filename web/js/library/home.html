@@ -9,21 +9,22 @@
     </div>
   </section>
 
-
 <div class="col main">
 
 
   <section id="myposts" ng-if="mine.length > 0">
 
-   <h3>By you</h3>
+   <h3>Written by you</h3>
 
     <div ng-if="mine.length > 0" class="myposts">
       <table class="table table-striped">
         <tbody>
           <tr ng-repeat="p in mine">
             <td class="details">
-              <a ng-href="/activity/post/{{p._id}}" target="_self">{{ p.title }}</a>
-              <!-- <todo-helper post="p"></todo-helper> -->
+              <p ng-if="p.submitted">
+                <a ng-href="/activity/post/{{p._id}}" target="_self">{{ p.title }}</a>
+              </p>
+              <p ng-if="!p.submitted">{{p.title}}</p>
             </td>
             <td class="social">
               <section class="rating" ng-if="p.stats.reviews > 0">
@@ -68,11 +69,11 @@
 
 
   <section id="setup">
-    <h3>Setup</h3>
+    <h3>Author setup</h3>
 
     <section ng-if="drafts.length == 0 && mine == 0" class="alert alert-warning">
       <h4>var firstUp = createDraft(yourFirstPost)</h4>
-      <p>Hit <a href="/new" target="_self">New post</a> in the top menu to create
+      <p>Hit <a href="/new" target="_self">start new draft</a> in the top menu to create
       draft.</p>
     </section>
     <section ng-if="forked.length > 0">
@@ -110,22 +111,28 @@
       </div>
     </section>
 
-    <section ng-if="scopes"><h5>GitHub Permissions <em>Look'in good</em></h5></section>
+    <section ng-if="scopes"><h5>GitHub publishing permissions <em>Look'in good</em></h5></section>
 
   </section>
 
 </div>
 
-  <div class="col side">
-    <h3>News</h3>
+  <div class="col side min640">
 
-    <p><em>author.airpair</em> launched (on Dec 01)
-    </p>
+    <section id="opts">
 
-    <h4>Site guide</h4>
+      <h3>Quick links</h3>
 
-    <p>See our <a href="https://github.com/airpair/author.airpair.com/blob/master/test/server/specs/flows.coffee" target="_blank">flows spec</a> for what's implemented so far.</p>
+      <a href="/new" class="btn btn-sm">Start new draft</a>
 
+      <ul ng-if="drafts.length > 0">
+        <li>+ <a href="https://www.airpair.com/100k-writing-competition" target="_blank">2015 Writing Comp Winners</a></li>
+        <li>+ <a href="https://www.airpair.com/authoring-guide" target="_blank">Authoring Guide</a></li>
+        <li>+ <a href="https://www.airpair.com/software-experts" target="_blank">All published posts</a></li>
+      </ul>
+
+
+    </section>
 
     <section id="reviews" ng-if="reviews.length > 0">
       <h3>Reviews</h3>

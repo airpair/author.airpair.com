@@ -6,29 +6,44 @@ angular.module("Author.Edit", [])
   var route = (ctrl, template) => ({ controller: `edit:${ctrl}`, template })
 
   $routeProvider
-    .when('/new', route('details', require('./details.html')))
-    .when('/post-details/:id', route('details', require('./details.html')))
+    .when('/new', route('info', require('./info.html')))
+    .when('/post-details/:id', route('info', require('./info.html')))
     .when('/editor/:id', route('markdown', require('./edit.html')))
     .when('/submit/:id', route('submit', require('./submit.html')))
     // .when('/publish/:id', route('publish', require('./publish.html')))
 })
 
 
-.directive('todoHelper', $postsUtil => ({
-  template: require('./todoHelper.html'),
-  scope: { todo: '=todo', md: '=md', _id: '=id' },
+
+
+.directive('editHeader', (Shared, $postsUtil) => ({
+  template: require('./header.html'),
+  scope: { post: '=post', step: '=step', editing: '=editing' },
   controller($scope) {
-    $scope.next = $scope.todo.next
-    $scope.$watch('md', md => $scope.wordstogo = 400 - $postsUtil.wordcount(md,50))
+    $scope.status = $postsUtil.status($scope.post)
+    if ($scope.editing === undefined) $scope.editing = false
   }
 }))
 
 
-.controller('edit:details', ($scope, $routeParams, $location, StaticData, API) => {
+
+
+.directive('todoHelper', Shared => ({
+  template: require('./todoHelper.html'),
+  scope: { todo: '=todo', md: '=md', _id: '=id' },
+  controller($scope) {
+    $scope.next = $scope.todo.next
+    $scope.$watch('md', md => $scope.wordstogo = 400 - Shared.wordcount(md,50))
+  }
+}))
+
+
+
+.controller('edit:info', ($scope, $routeParams, $location, StaticData, API) => {
   var _id = $routeParams.id
 
   $scope.save = data => API(`/posts${_id?'/details/'+_id:''}`, data, r =>
-    window.location = `/${r.submitted?'preview':'editor'}/${_id}`)
+    window.location = `/${r.submitted?'preview':'editor'}/${r._id}`)
 
   $scope.savable = ({tags,assetUrl,title}) =>
     _id ? (tags.length > 0 && assetUrl!='' && title != '') : (title != '')
@@ -137,6 +152,7 @@ angular.module("Author.Edit", [])
 
 
   var setScope = function(r) {
+    $scope.post = r
     $scope.isAuthor = r.by.userId == $scope.session._id
 
     if (r.published && !r.submitted && $scope.isAuthor)
@@ -153,8 +169,8 @@ angular.module("Author.Edit", [])
     $scope.saved = true
     $scope.title = r.title
     $scope.slug = r.slug
-    $scope.submitted = r.submitted
     $scope.repo = r.repo
+    $scope.submitted = r.submitted
     $scope.published = r.published
     $scope.todo = r.todo
     $scope.previewable = $postsUtil.previewable(r)
@@ -193,25 +209,37 @@ angular.module("Author.Edit", [])
 })
 
 
-.controller('edit:submit', ($rootScope, $scope, $q, $routeParams, $timeout, API) => {
+.controller('edit:submit', ($scope, $q, $routeParams, $timeout, ERR, API) => {
   var _id = $routeParams.id
   $scope._id = _id
 
-  API(`/posts/submission/${_id}`,
-    r => {
-      $scope.post = r
-      $scope.submission = r.submission
-    },
-    e => {
-      if (e.message.match('cannot be submitted more tha once'))
-        window.location = `/library?submitted=${_id}`
-      else
-        $rootScope.serverErrs.push(e)
-    }
-  )
+  var setScope = r => {
+    $scope.post = r
+    $scope.submission = r.submission
+  }
+  var setScopeError =  e => {
+    if (e.message.match('cannot be submitted more than once'))
+      window.location = `/library?submitted=${_id}`
+    else
+      ERR.addServerError(e)
+  }
 
+
+  API(`/posts/submission/${_id}`, setScope, setScopeError)
+
+
+  var refresh = function() {
+    API(`/posts/submission/${_id}?slug=${$scope.post.slug}`, setScope, setScopeError)
+  }
+
+  var timer = null
   $scope.refreshSubmission = () => {
-    DataService.posts.checkSlugAvailable({_id,slug}, (r) => $scope.slugStatus = r )
+    $scope.submission.valid = null
+    if (timer) {
+      $timeout.cancel(timer)
+      timer = null
+    }
+    timer = $timeout(refresh, 2000)
   }
 
   $scope.submitDeferred = () => {
@@ -231,7 +259,7 @@ angular.module("Author.Edit", [])
           deferred.resolve(r)
         },
         e => {
-          $rootScope.serverErrs.push(e)
+          ERR.addServerError(e)
           deferred.reject(e)
         })
     }

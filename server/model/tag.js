@@ -1,4 +1,4 @@
-module.exports = ({ Id },
+module.exports = ({ Id, Htmlhead },
   { asSchema, required, trim, lowercase, unique, sparse }) => {
 
 
@@ -20,9 +20,14 @@ var TagSchema = asSchema({
 
   soId:     { type: String, trim, lowercase, unique, sparse },
 
+  so:       {},
+
+  meta:     { type: Htmlhead, required: false },
+
 })
 
-var indexFields = { tokens: 'text', name: 'text', short: 'text', desc: 'text' }
+
+var indexFields = { tokens: `text`, name: `text`, short: `text`, desc: `text` }
 var weights = { tokens: 2000, name: 1000, short: 400, desc: 10 }
 TagSchema.index(indexFields, { name: 'TagTextIndex', weights })
 

@@ -9,7 +9,7 @@ module.exports = new LogicDataHelper(
   views,
 
   //-- Projections
-  ({chain,select,inflate,map}) => ({
+  ({chain,select,map}) => ({
 
 
     library: ({userId,scopes,posts}) => {
@@ -56,4 +56,4 @@ module.exports = new LogicDataHelper(
   }
 
 )
-.addCacheInflate('tags', ['name','slug','short'])
+// .addCacheInflate('tags', ['name','slug','short'])

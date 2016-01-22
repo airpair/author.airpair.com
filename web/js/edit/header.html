@@ -1,0 +1,41 @@
+<style type="text/css">
+  body > footer { display:none }
+  body > header > div { display:none }
+</style>
+
+
+
+<nav id="edit">
+  <ol>
+    <li class="edge">
+      <a href="/" class="home" target="_self">
+        <img src="https://static.airpair.com/img/author/airpair-author.png" />
+      </a>
+    </li>
+    <li>
+      <a ng-if="post._id && editing" class="disabled" title="Save your changes">Info</a>
+      <a ng-if="step=='info'" class="current">Info</a>
+      <a ng-if="step!='info' && !editing" href="/post-details/569fe0f9229be7e443281614">Info</a>
+    </li>
+    <li>
+      <a ng-if="!post._id" class="disabled" title="Supply a title to unlock the post editor">Edit</a>
+      <a ng-if="step=='edit'" class="current">Edit</a>
+      <a ng-if="step!='edit' && post._id" href="/editor/569fe0f9229be7e443281614">Edit</a>
+    </li>
+    <li>
+      <a class="disabled" title="Complete post requirement to unlock submit">Submit</a>
+    </li>
+    <li>
+      <a class="disabled" title="Submit your post to unlock social features">Collaborte</a>
+    </li>
+    <li>
+      <a class="disabled" title="Complete post requirement to unlock submit">Publish</a>
+    </li>
+    <li class="edge">
+      <a class="disabled" title="Complete post requirement to unlock submit">Promote</a>
+    </li>
+  </ol>
+
+  <span class="status {{status}}" ng-if="status">[<b>{{status}}</b>]</span>
+  <cite>{{post.title||'New post'}}</cite>
+</nav>

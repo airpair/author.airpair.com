@@ -1,4 +1,6 @@
-<section id="posteditor">
+<edit-header ng-if="post" post="post" step="'edit'" editing="!saved"></edit-header>
+
+<section ng-if="post" id="posteditor">
 
   <div ng-if="editErr" class="editor-error-wrap">
     <h3 ng-bind-html="editErr.message | html"></h3>
@@ -6,21 +8,17 @@
   </div>
 
   <div ng-if="data" class="statusbar {{saved ? 'saved': 'unsaved' }}">
-    <div class="tip">
-      <todo-helper todo="todo" md="data.md" id="_id"></todo-helper>
-    </div>
+
 
     <span class="status">
-      <span class="unsaved" ng-if="!saved">unsaved</span>
+      <button class="btn btn-sm btn-save" ng-click="save()" ng-if="!saved">Save</button>
       <span class="saved" ng-if="saved">saved</span>
 
-        <span ng-if="submitted"> <a href="https://www.github.com/{{repo}}/blob/edit/post.md" target="_blank">{{repo}}</a> on edit branch</span> <span class="unsaved" ng-if="!syncedMD">(HEAD not synced)</span>
-
-
-      <b>{{title}}</b>
-
-      [<span ng-if="!submitted && !published">DRAFT</span><span ng-if="submitted && !published">SUBMITTED</span><span ng-if="published">PUBLISHED</span>]
-
+      <span ng-if="submitted">|
+        <a href="https://www.github.com/{{repo}}/blob/edit/post.md" target="_blank">{{repo}}</a>
+        on edit branch
+      </span>
+      <span class="unsaved" ng-if="submitted && !syncedMD">HEAD not synced</span>
     </span>
   </div>
 
@@ -39,45 +37,48 @@
       >
     </section>
 
-  <!--<section id="post" ap-post="">
-      </section> -->
+    <section id="post" preview="post">
+    </section>
 
   </div>
 
-<div ng-if="data" class="form-actions">
-
-  <button class="btn-save" ng-click="save()" ng-disabled="saved">Save</button>
-
-  <a class="btn-details" href="/post-details/{{_id}}" ng-if="!published"
-     ng-disabled="!saved">Details</a>
-
-  <a class="btn-preview" ng-href="{{previewLink(_id)}}" target="_blank"
+<!--   <a class="btn-preview" ng-href="{{previewLink(_id)}}" target="_blank"
     ng-disabled="!(saved&&previewable)">Preview</a>
 
-  <button class="btn-submit"
+ -->
+
+<!--   <button class="btn-submit"
     ng-if="toSubmit" ng-click="redirectSubmit(_id)"
-    ng-disabled="!saved">Submit</button>
+    ng-disabled="!saved">Submit</button> -->
 
-  <a class="btn-pr" ng-if="!isAuthor" href="https://github.com/airpair/{{slug}}/compare/edit...{{repo}}:edit" target="_blank"
+<!--   <a class="btn-pr" ng-if="!isAuthor" href="https://github.com/airpair/{{slug}}/compare/edit...{{repo}}:edit" target="_blank"
       ng-disabled="!saved || syncedMD">Create PR</a>
+ -->
 
-  <input type="button" class="btn-sync" ng-click="sync()" ng-if="submitted && isAuthor" ng-disabled="!saved || syncedMD" value="Sync" />
+<!--   <input type="button" class="btn-sync" ng-click="sync()" ng-if="submitted && isAuthor" ng-disabled="!saved || syncedMD" value="Sync" />
+ -->
 
-
-  <button class="btn-publish"
+<!--   <button class="btn-publish"
     ng-if="toPublish" ng-click="redirectPublish(_id)"
     ng-disabled="!saved">Publish</button>
 
-
-  <div class="commitmsg" ng-if="submitted">
+ -->
+<!--   <div class="commitmsg" ng-if="submitted">
     <input type="text" ng-disabled="saved" ng-model="data.commitMessage" placeholder="Enter a commit message" class="form-control" />
   </div>
-
+ -->
  <!-- && wordcountTooLow -->
   <!-- <label ng-if="!(post.submitted || post.published)">
     See the <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown guide</a> & our <a href="/authoring-faq" target="_blank">Authoring FAQ</a>
   </label> -->
 
-</div>
 
 </section>
+
+<footer ng-if="post" class="edit">
+
+    <p class="tip">
+      <todo-helper todo="todo" md="data.md" id="_id"></todo-helper>
+    </p>
+
+</footer>

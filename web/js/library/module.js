@@ -3,7 +3,7 @@ angular.module("Author.Library", [])
 
 .config($routeProvider => {
 
-  var list = { template: require('./list.html'), controller: 'library:list' }
+  var list = { template: require('./home.html'), controller: 'library:home' }
   $routeProvider
     .when('/', list)
     .when('/library', list)
@@ -11,11 +11,9 @@ angular.module("Author.Library", [])
 })
 
 
-.controller('library:list', function($rootScope, $scope, $location, API) {
+.controller('library:home', function($scope, $location, ERR, API) {
 
-  if ($location.search().err)
-    $rootScope.serverErrs.push(decodeURIComponent($location.search().err))
-
+  ERR.checkQuerystring()
 
   API('/me/library', r => {
     $scope.library =   r
@@ -33,12 +31,10 @@ angular.module("Author.Library", [])
 
     if ($location.search().submitted)
       $scope.submitted = _.find(r.mine, p => p._id == $location.search().submitted)
-
-
   })
 
-  $scope.delete = _id =>
-    API(`delete/posts/${_id}`, r => window.location = '/library')
+  $scope.delete = id =>
+    API(`/delete/posts/${id}`, r => window.location = '/library')
 
 })
 

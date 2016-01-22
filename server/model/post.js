@@ -1,4 +1,4 @@
-// var {Survey} = require("../models/_shared")
+var Survey = {}
 
 module.exports = ({ Id, Enum, Touch, Reftag, Note, Htmlhead, Meta },
   { asSchema, required, trim, lowercase, index, unique, sparse }) => {
@@ -9,17 +9,19 @@ var Author = {
   expertId:     { type: Id, ref: 'Expert' },
   name:         { type: String, required },
   avatar:       { type: String, required },
+
+  //-- legacy to replace
   bio:          { type: String },
-  // username:     { type: String, lowercase },
-  // social: {
-  //   gh:         { username: { type: String } },
-  //   so:         { link: { type: String } },
-  //   bb:         { username: { type: String } },
-  //   in:         { id: { type: String } },
-  //   tw:         { username: { type: String } },
-  //   al:         { username: { type: String } },
-  //   gp:         { link: { type: String } }
-  // }
+  username:     { type: String, lowercase },
+  social:       {
+      gh: {     username: { type: String } },
+      so: {     link: { type: String } },
+      bb: {     username: { type: String } },
+      in: {     id: { type: String } },
+      tw: {     username: { type: String } },
+      al: {     username: { type: String } },
+      gp: {     link: { type: String } }
+  }
 }
 
 var StatsSummary = {
@@ -62,7 +64,7 @@ return asSchema({
     tags:             [Reftag],
     //-- rename to tileUrl ?
     assetUrl:         { type: String, trim },
-    //-- rename to htmlHeader ?
+    //-- renamed from meta to htmlHeader ?
     htmlHead:         Htmlhead, //-- todo, rename field
   // }
 
@@ -75,7 +77,6 @@ return asSchema({
 
   // history: {
     created:          { type: Date, required, 'default': Date },
-    // lastTouch:        Touch,
     //-- consider removing 'updated' as supersceded by lastTouch
     updated:          { type: Date, required, 'default': Date },
     //
@@ -89,11 +90,17 @@ return asSchema({
     publishedCommit:  { type: {} }, // sha hash or whole commit object
     publishedUpdated: { type: Date }, // lasttime timestamp of update
     publishHistory:   [PublishEvent],
+
+    // legacy
+    lastTouch:        {},
   // },
 
-  reviews:          [], //[asSchema(Survey)],
+
+  reviews:          [asSchema(Survey)],
+  // reviews:          [], //[asSchema(Survey)],
   forkers:          [Forker],
 
+  // TO review in 0.6.3
   github: {
     repoInfo: {
       authorTeamId:   { type: String },
@@ -102,17 +109,18 @@ return asSchema({
       url:            { type: String, lowercase },
       // SHA of file ?
     },
-    events:           []
+    events:           [],
+    stats:            [] //Object?
   },
 
   stats:            StatsSummary,
 
-  // prize: {
-  //   comp:       { type: String, enum: Enum.POST.COMP },
-  //   sponsor:    { type: String },
-  //   name:       { type: String },
-  //   tag:        { type: String },
-  // }
+  prize: {
+    comp:       { type: String, enum: Enum.POST.COMP },
+    sponsor:    { type: String },
+    name:       { type: String },
+    tag:        { type: String },
+  }
 
 })
 
