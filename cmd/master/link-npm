@@ -1,0 +1,10 @@
+#!/bin/sh
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+printf "${CYAN}CMD: sym-linked meanair npm modules${NC} /node_modules\n"
+npm link meanair-scream
+npm link meanair-shared
+npm link meanair-model
+npm link meanair-build
+npm link meanair-server
+npm link meanair-auth

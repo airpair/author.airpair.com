@@ -1,19 +1,6 @@
 #!/bin/sh
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
-printf "${CYAN}CMD: sym-linked meanair npm modules${NC} /node_modules\n"
-npm link meanair-scream
-npm link meanair-shared
-npm link meanair-model
-npm link meanair-build
-npm link meanair-server
-npm link meanair-auth
-printf "${CYAN}CMD: Symlink shared js${NC}\n"
-mkdir -p web/js/.lib/meanair;
-cd web/js/.lib/meanair;
-for l in $(find . -type l); do unlink $l;done;
-for f in $(ls -d ../../../../node_modules/meanair-shared/lib/*.js); do ln -nsf $f;done;
-cd ../../../../;
 printf "${CYAN}CMD: source sym-linked js${NC} /web/js\n"
 mkdir -p web/js/.lib/ang.v1/directives;
 cd web/js/.lib/ang.v1/directives;
@@ -46,7 +33,12 @@ for l in $(find . -type l); do unlink $l;done;
 for f in $(ls -d ../../../../static/css/shared/*.less); do ln -nsf $f;done;
 cd ../../../;
 printf "${CYAN}CMD: source sym-linked less${NC} /web/css\n"
-cd web;
-ln -nsf ../../static/public
-cd ../;
-printf "${CYAN}CMD: source sym-linked static/public${NC} /web/public\n"
+rm -rf web/static/js;
+cp -R ../static/public/js/ web/static/js;
+printf "${CYAN}CMD: copied ../static/js${NC} /web/static/js\n"
+mkdir -p web/static/js/.lib;
+cd web/static/js/.lib;
+for l in $(find . -type l); do unlink $l;done;
+for f in $(ls -d ../../../../node_modules/meanair-shared/lib/*.js); do ln -nsf $f;done;
+cd ../../../../;
+printf "${CYAN}CMD: Symlink shared js${NC}\n"
