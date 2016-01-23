@@ -33,9 +33,6 @@ angular.module("Author.Library", [])
       $scope.submitted = _.find(r.mine, p => p._id == $location.search().submitted)
   })
 
-  $scope.delete = id =>
-    API(`/delete/posts/${id}`, r => window.location = '/library')
-
 })
 
 

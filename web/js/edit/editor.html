@@ -1,4 +1,4 @@
-<edit-header ng-if="post" post="post" step="'edit'" editing="!saved"></edit-header>
+<edit-header ng-if="post && session" post="post" step="'edit'" editing="!saved"></edit-header>
 
 <section ng-if="post" id="posteditor">
 
@@ -10,7 +10,9 @@
   <div ng-if="data" class="statusbar {{saved ? 'saved': 'unsaved' }}">
     <span class="status">
       <button class="btn btn-sm btn-save" ng-click="save()" ng-if="!saved">Save</button>
-      <span class="saved" ng-if="saved">saved</span>
+      <span class="saved" ng-if="saved"><b>saved</b>
+        <span ng-if="wordcount > 10">{{wordcount}} words</span>
+      </span>
 
       <span ng-if="submitted">|
         <a href="https://www.github.com/{{repo}}/blob/edit/post.md" target="_blank">{{repo}}</a>
@@ -82,8 +84,6 @@
 
 <footer ng-if="post" class="edit">
 
-  <p class="tip">
-    <todo-helper todo="todo" md="data.md" id="_id"></todo-helper>
-  </p>
+  <todo-helper todo="todo" md="data.md" id="_id"></todo-helper>
 
 </footer>

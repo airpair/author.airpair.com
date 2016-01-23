@@ -12,7 +12,7 @@ module.exports = (app,mw) => {
            '/library',
            '/write',
            '/new',
-           '/post-details/*',
+           '/post-info/*',
            '/submit/*',
            '/preview/*',
            // '/forked',

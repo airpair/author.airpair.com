@@ -42,6 +42,13 @@ var shared = {
   },
 
 
+  submittable(post) {
+    return post.tags.length > 0 &&
+           post.assetUrl &&
+           post.stats ? post.stats.words > 400 : true
+  },
+
+
   todo(post) {
     if (post.tags.length == 0) return 'tag'
     if (!post.assetUrl) return 'asset'
@@ -94,6 +101,7 @@ var shared = {
   getPreview(post, marked) {
     var preview = shared.extractReferences(post.md)
     preview.title = post.title
+    preview.assetUrl = post.assetUrl
     preview.body = marked(post.md)
     // preview.wordcount = shared.wordcount(md)
     if (preview.references)

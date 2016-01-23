@@ -1,62 +1,58 @@
-<header ng-if="post">
-  <ol class="entry-meta breadcrumb">
-    <li><a href="/library" target="_self">Library</a></li>
-    <li ng-if="prev"><a ng-href="/post-details/{{post._id}}">{{post.title}}</a></li>
-    <li ng-if="prev"><a ng-href="/editor/{{post._id}}">Edit</a></li>
-    <li class="current">Submit</li>
-  </ol>
-</header>
+<edit-header ng-if="post" post="post" step="'submit'"></edit-header>
+<footer ng-if="post" class="edit">
+  <p ng-if="!post.submitted">Supply a slug for your post. Take care
+  this will be used as part of the url of your published post as well
+  as the repo name store on GitHub.</p>
+</footer>
 
 
-<section id="postsubmit" ng-if="post">
+<section id="submit" ng-if="post">
 
-
-  <div class="col main">
-
-    <h2>Submit for community review</h2>
-
-    <p>A repo will be created on AirPair's Github organization account</p>
-
+  <div class="start">
+    <h3>Submit for community review</h3>
     <img class="flow" src="//static.airpair.com/img/author/authoring-flow-store.png" />
+    <p>A repo will be created on AirPair's Github organization account</p>
+  </div>
 
+  <form class="edit">
 
-    <div class="submitRepo">
-      <hr />
+    <div class="form-group">
+      <label>
+        <b ng-if="post.slug.length > 50"><span class="invalid">{{post.slug}}</span>
+         is too long <em class="invalid">{{post.slug.length}} chars</em></b>
+        <b ng-if="submission.valid === null">Repo name
+          <b>{{post.slug}}</b> checking availability</b>
+        <b ng-if="submission.valid === false">Repo name
+          <span class="invalid">{{post.slug}}</span> unavailable
+          <span ng-bind-html="submission.invalid"></span></b>
+        <b ng-if="submission.valid">Repo name
+          <span class="valid">{{post.slug}}</span> available</b>
+      </label>
 
-      <div class="form-group">
-        <label>
-          <b ng-if="post.slug.length > 50"><span class="invalid">{{post.slug}}</span>
-           is too long <em class="invalid">{{post.slug.length}} chars</em></b>
-          <b ng-if="submission.invalid">Repo name
-            <span class="invalid">{{post.slug}}</span> unavailable
-            <span ng-bind-html="submission.invalid"></span></b>
-          <b ng-if="submission.valid">Repo name
-            <span class="valid">{{post.slug}}</span> available</b>
-        </label>
-
+      <div class="input-group slug-group">
+        <div class="input-group-addon"> &nbsp; &nbsp;
+          www.airpair.com/posts/{{post.tags[0].slug}}/</div>
         <input ng-model="post.slug" type="text" class="form-control"
           ng-change="refreshSubmission()" />
       </div>
-
-      <div ng-if="submission.valid">
-        <div>
-          <single-submit button-text="'Submit Post & Create Repo'" wait-text="Creating repo, this can take a few seconds ..." on-single-click="submitDeferred">
-          </single-submit>
-        </div>
-        <p>
-          <span style="color:red;text-transform:uppercase">* Once submitted, your post <b>repo name cannot be changed</b>.</span>
-        </p>
-
-        <!-- <p> In order to give you write privilages to the repo,
-        we'll add you to the airpair organization on GitHub.</p> -->
-      </div>
     </div>
 
+    <div ng-if="submission.valid">
+      <div class="form-actions">
+        <single-submit button-text="'Submit & create repo'" wait-text="Creating repo, this can take 30 seconds ..." on-single-click="submitDeferred">
+        </single-submit>
+      </div>
+      <p>
+        <span style="color:red;text-transform:uppercase">* Once submitted, your post <b>repo name cannot be changed</b>.</span>
+      </p>
 
-  </div>
+      <!-- <p> In order to give you write privilages to the repo,
+      we'll add you to the airpair organization on GitHub.</p> -->
+    </div>
 
+  </form>
 
-  <div class="col side">
+<!--   <div class="col side">
     <h3>Git for authoring?</h3>
 
     <p>Posts on AirPair are backed by GitHub repos. Git
@@ -66,5 +62,7 @@
     <a href="https://www.airpair.com/social-authoring" target="_blank">Social Authoring Annoucement</a>.</p>
 
   </div>
+ -->
 
 </section>
+

@@ -13,41 +13,67 @@ nav.edit {
       line-height:24px;
       height:30px;
       padding-top:0px;
+      b {
+        display:inline-block;
+        vertical-align:top;
+        padding-top:3px;
+        color:@bluegray;
+        font-size:11px;
+      }
       a {
         margin-top:2px;
         display:inline-block;
-        font-size:15px;
+        font-size:16px;
       }
       a.disabled {
-        color:@lightgray
+        color:@darkbluegray
       }
       a.current {
-        color:@gray
+        color:@gray;
+        font-weight:bold;
       }
       a.home {
-        margin-top:0px!important;
+        margin:0px 2px;
+      }
+      a.delete {
+        // font-size:15px;
       }
     }
-    li::after { content:">";
+    li::after {
+      content:">";
+      vertical-align:top;
       display:inline-block;
-      color:@mediumgray;
-      padding:0px 5px;
-      font-size:12px;font-weight:bold }
+      color:@bluegray;
+      padding:3px 5px 3px 5px;
+      line-height:20px;
+      font-size:15px;
+      font-weight:bold }
     li.edge::after { content:"";padding:2px }
   }
   cite, span {
-    font-weight:normal;float:right;color:@mediumgray; display:inline-block;
+    font-weight:normal;float:right;
+    color:@mediumgray; display:inline-block;
   }
   cite { font-size:18px;padding-top:2px }
-  span.status { font-size:15px;padding:4px 5px;}
+  span.status { font-size:15px;padding:4px 5px 4px 8px;}
   span.status b { text-transform:uppercase; }
   .draft { color:@darkyellow }
   .submitted {}
   .published {}
 }
 
+form.edit .form-actions {
+  border-top:1px solid @bluegray;
+  margin-top:30px;
+  padding-top:20px;
+  text-align:center;
+  // .btn { width:300px }
+  .btn { width:100% }
+}
+
 footer.edit {
   position:absolute;
+  z-index:90;
   bottom:0;left:0;right:0;
   height:120px;
   border-top:solid 1px @bluegray;
@@ -61,26 +87,43 @@ footer.edit {
   }
 }
 
+.editStart {
+  padding:30px 10px 0px 10px;
+  margin:0px auto 0px auto;
+  text-align:center;
+  h3 { margin:15px auto 35px auto }
+  img { max-width:640px;width:96%;margin:auto }
+  p {
+    color:@textgray;
+    margin:40px 0 0px 0;
+    text-align:center;font-size:16px
+  }
+}
+
+
 section#postinfo {
   position:relative;
 
-  .start {
-    padding:30px 10px 20px 10px;
-    color:black;
-    font-size:13px;
-    margin:0px auto 20px auto;
-    text-align:center;
-    max-width:90%;
-    h3 { margin:5px auto 20px auto }
-    p { margin-top:120px;text-align:justify; }
-    em { font-weight:bold;font-style:normal; }
-    img { max-width:640px;width:88%;margin:auto }
+  .start, .preview, form { max-width:640px;margin-left:auto;margin-right:auto }
+  .start { .editStart }
+
+  .preview {
+    #post { min-height:300px }
+    border-bottom:solid 1px @bluegray;
+    padding-bottom:40px;
+    .assetplace {
+      margin-top:-220px;
+      height:300px;
+      border:dotted 1px @bluegray;vertical-align:middle;
+      p { margin:50px auto;text-align:center;color:@darkbluegray }
+    }
   }
 
   .form-group {
-    input { padding-top:10px;padding-bottom:10px;height:42px }
+    input { padding-top:12px;padding-bottom:12px;height:45px }
     label { width:100% }
     label i.info {
+      font-size:14px;
       color:@gray;font-weight:normal;
       float:right;
       text-align:right;
@@ -95,41 +138,33 @@ section#postinfo {
     label { display:none }
     input { width:280px;float:left }
     .selected {
-      width:140px;
+      position:absolute;
+      top:10px;
+      left:280px;
+      right:0;
       display:block;
-      float:right;
-      li { display:block;background:none;border:none }
-      .remove { float:left;background:none;
-        color:red;display:inline-block;font-size:14px;
-        padding:0px 5px 0px 0px
-      }
+      li { float:right; }
       p { padding:10px 0 0 0;font-size:12px }
     }
   }
-  .form-actions {
-    border-top:1px solid @bluegray;
-    margin-top:30px;
-    padding-top:20px;
-    text-align:center;
-    .btn { width:260px }
-  }
 }
+
 
 
 section#posteditor {
   .absolutelyStreched;
   top:38px;
-  z-index:100;
+  z-index:50;
 
   .statusbar {
     position:absolute;
-    top:0;left:0px;right:0px;
+    top:0;left:3px;right:0px;
     padding:1px 10px;
     height:30px;
     font-size:14px;
     line-height:18px;
     border-bottom:solid 1px @bluegray;
-    &.saved { background:#E6F0E6;font-weight:bold }
+    &.saved { background:#E6F0E6; }
     &.unsaved { background:#FAF5E6; }
     .status {
       span { text-transform:uppercase; }
@@ -137,7 +172,9 @@ section#posteditor {
       display:inline-block;
       position:absolute;
       top:6px;
-      .saved { color:darkgreen; }
+      .saved { color:darkgreen;
+        span { font-size:12px }
+      }
       .unsaved { color:@darkyellow; }
     }
     .btn-save { margin-top:-1px;padding:1px 20px }
@@ -172,7 +209,6 @@ section#posteditor {
     bottom:120px;
     overflow-y:scroll;
     overflow-x:hidden;
-    // article { width:640px; }
     left:620px;
     bottom:120px;
     // .author { display:none }
@@ -209,11 +245,6 @@ section#posteditor {
   @media screen and (max-width:641px) {
     .preview, span.modes { display:none; }
   }
-
-  // .postpreviewpanes;
-  // .editor-wrap {
-  //   left:60px;right:20px;
-  // }
 
   // .form-actions {
   //   position:absolute;
@@ -298,10 +329,21 @@ section#posteditor {
   // }
 }
 
-section#postsubmit {
-  img.flow { max-width:620px;height:100px;margin:20px  }
-  .submitRepo {
-    .valid { color:green }
-    .invalid { color:@error }
+
+
+section#submit {
+
+  .start, form { max-width:640px;margin-left:auto;margin-right:auto }
+  .start { .editStart }
+  form { border-top:solid 1px @bluegray;
+    margin-top:50px;padding-top:30px  }
+
+  .valid { color:green }
+  .invalid { color:@error }
+
+  .slug-group {
+    font-family:courier;
+    .input-group-addon { padding-right:2px;color:@mediumgray }
+    .form-control { padding-left:3px;color:@mediumgray }
   }
 }

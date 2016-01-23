@@ -15,7 +15,7 @@ module.exports = ({Post}, Data, Shared, {author}) => ({
     if (user.auth.gh.scopes.indexOf("user") == -1)
       return `Token for [${user._id}][${user.auth.gh.username}] Missing valid 'user' scope`
 
-    if (slug && !posts.validSlug(slug))
+    if (slug && !Shared.posts.validSlug(slug))
       return `Slug[${slug}] not valid`
 
     if (slug && slug.length > 50)
@@ -25,10 +25,9 @@ module.exports = ({Post}, Data, Shared, {author}) => ({
 
 
   exec(post, slug, cb) {
-
     if (!slug) slug = Shared.posts.defaultSlug(post)
-
     Post.getByQuery({slug}, { select: 'title slug' }, (ee, fromDb) => {
+      Object.assign(post,{slug})
       if (fromDb)
         cb(null, Object.assign(post, { submission: { valid: false,
           info: `Repo name "${slug}" already taken by another post`

@@ -11,15 +11,15 @@ var viewMode = {
 var data = {
   viewMode,
   examplePostImage: `https://static.airpair.com/img/author/example2.jpg`,
-  defaultPostMarkdown: `Welcome to your new post
+  defaultPostMarkdown: `Welcome to your post. Highlighted elements are inconsistent with our [authoring guidelines](https://www.airpair.com/authoring-guide)
 
-> Below is a collection of example markdown to quickly format professional looking posts. It's good practice to start every posts with a short inside this/a blockquote up to top of about this length (30-50 words)
+> Posts should start with a 30-50 word \`blockquote\` summary. Delete the above sentence and rewrite this blockquote when know what your post is covering.
 
 ## 1. AirPair Editor Tips
 
 ### 1.1 The preview pane
 
-As you type the preview pane will update.
+As you make change the preview pane will update.
 
 The longer your post, the less frequently it will refresh. To immediately show the latest changes, click anywhere - *i.e. blur* - out of the editor.
 
@@ -29,13 +29,12 @@ When you make changes, the **SAVE** button appears.
 
 Preview how things look across different devices and if all's well, click **SAVE** to avoid loosing work.
 
-### 1.3 Guideline cues
+### 1.3 Guideline
 
-You will notice guidelines marked by css automatically in a different color.
-For examples posts should start with a short summary contained inside a
-blockquote. If you haven't yet, reomve the first sentence and what it red go away.
+# Don't use \`h1\`
 
-# Don't use `h1` in your markdown
+h1 is reserved for your title. More than one h1 will negatively impact
+post SEO.
 
 ## 2. Handy Markdown snippets
 

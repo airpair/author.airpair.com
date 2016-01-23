@@ -1,17 +1,16 @@
 <span ng-if="next">
-  <span ng-if="next == 'tag'">
-    <a href="/post-details/{{_id}}">add tags</a> to unlock preview
-  </span>
-  <span ng-if="next == 'asset'">
-    <a href="/post-details/{{_id}}">add primary media</a> to unlock preview
-  </span>
-  <span ng-if="next == 'wordcount'">
+  <p ng-if="next == 'tag'">
+    <a href="/post-info/{{_id}}">Add tags</a> to unlock SUBMIT
+  </p>
+  <p ng-if="next == 'asset'">
+    <a href="/post-info/{{_id}}">add a feature img</a>
+  </p>
+  <p ng-if="next == 'wordcount'">
     Min 400 words to unlock SUBMIT (about <b>{{wordstogo}}</b> to go)
-  </span>
-  <span ng-if="next == 'submit'">Post looks ready to
+  </p>
+  <p ng-if="next == 'submit'">Post looks ready to
     <a ng-href="/submit/{{p._id}}">submit</a> for community feedback!
-  </span>
-
+  </p>
 
   <!-- {{next}} -->
   <!-- <p ng-if="calcDraftStep()">

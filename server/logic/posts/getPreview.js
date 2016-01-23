@@ -1,8 +1,6 @@
 module.exports = (DAL, Data, Shared, {authorOrForker,getHeadMarkdown}) => ({
 
   validate(user, post) {
-    //-- TODO: Allow editors to preview without a fork
-
     if (!authorOrForker(user, post))
       return `Post[${post._id}] preview fail. Did you <a href="forks/${post._id}">fork</a> ${original.title} already?`
 

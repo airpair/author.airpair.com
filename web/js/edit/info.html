@@ -1,54 +1,64 @@
 <edit-header ng-if="data" post="data" step="'info'"></edit-header>
 
+
 <section id="postinfo" ng-if="data">
 
-
-   <div class="start" ng-if="!_id">
+  <div class="start" ng-if="!_id">
     <h3>Exciting... a blank canvas to write down ideas!</h3>
     <img class="flowpic" ng-if="!_id" src="//static.airpair.com/img/author/authoring-flow-start.png" />
+    <p>
+      Let's start with a title. Don't think too hard, you can
+      edit it later - as explained below.
+    </p>
   </div>
 
-  <div class="form-group title-group">
-    <label ng-if="data._id">Title of your blog post</label>
-    <input ng-model="data.title" type="text" class="form-control" placeholder="Type a title for your draft" ng-focus="clearDefaultTitle()" />
-  </div>
 
-  <div ng-if="data._id">
+  <section ng-if="preview && _id" class="preview">
+    <div id="post" preview></div>
+    <div ng-if="!preview.assetUrl" class="assetplace">
+      <p>Add a feature image to your post</p>
+    </div>
+  </section>
 
-    <div class="form-group">
-      <label>Featured media url
-        <i ng-show="data.title" class="info">
-          use <a href ng-click="exampleImage()">temp placeholder
-          img</a>
-        </i>
-      </label>
-      <input ng-model="data.assetUrl" type="text" class="form-control"
-        placeholder="Paste https image url" />
+  <form class="edit">
+
+    <div class="form-group title-group">
+      <label ng-if="data._id">Title of your blog post</label>
+      <input ng-model="data.title" type="text" class="form-control" placeholder="Type a title for your draft" ng-focus="clearDefaultTitle()" />
     </div>
 
-    <div class="form-group">
-      <label>Tags </label>
-      <div input-tags data="data.tags"></div>
-    </div>
+    <div ng-if="data._id">
 
-  </div>
+      <div class="form-group">
+        <label>Featured img url
+          <span class="info"><b>*</b> https required</span>
+          <i ng-show="data.title" class="info">
+            use <a href ng-click="exampleImage()">temp placeholder</a>
+          </i>
+        </label>
+        <input ng-model="data.assetUrl" type="text" class="form-control"
+          placeholder="Paste https image url" />
+      </div>
+
+      <div class="form-group">
+        <label>Tags </label>
+        <div input-tags data="data.tags"></div>
+      </div>
+
+    </div>
 
 
     <div class="form-actions">
 
-    <!-- fuck angular v1 sometimes seriously -->
+      <!-- fuck angular v1 sometimes seriously -->
       <button ng-if="!savable(data)" class="btn" disabled>Save</button>
       <button ng-if="savable(data)" class="btn" ng-click="save(data)">Save</button>
 
-      <!-- <p ng-if="post._id && (!post.assetUrl || !post.tags || post.tags.length == 0)">
-        You will be able to open your post in full page preview mode once you've saved
-        tags and a featured media asset.
-      </p>
- -->
     </div>
 
+  </form>
 
-<!--   <section ap-post=""></section> -->
+
 
 
 </section>
@@ -56,13 +66,20 @@
 
 <footer class="edit">
 
-  <p ng-if="!post.submitted">
+  <p ng-if="!_id">
     Welcome to <i>THE Social Authoring</i> flow. We'll guide you
     with tips here as you progress through each step up top.
   </p>
 
-  <p ng-if="!post.submitted">
+  <p ng-if="!_id">
     New posts start in <b>DRAFT</b> mode. Everything including title and markdown
     are 100% editable plus <i class="info">only</i> visible to you. When you're ready to <em>collaborate</em> with peers via forks and pull requests we'll walk you through submitting.
   </p>
+
+  <p ng-if="_id && !preview.submitted">
+    Feature images represent posts appearing in a
+    list of posts and are used when your
+    post is shared on social media.
+  </p>
+
 </footer>

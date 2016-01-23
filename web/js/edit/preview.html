@@ -1,8 +1,9 @@
 <article class="blogpost">
 
   <h1 class="entry-title" itemprop="headline">{{ preview.title }}</h1>
+  <p class="feature"><img ng-src="{{ preview.assetUrl }}" /></p>
 
-  <div class="body" ng-bind-html="preview.body | html"></div>
+  <div class="body" ng-if="preview.body" ng-bind-html="preview.body | html"></div>
   <div id="references" ng-if="preview.references">
     <h4>References</h4>
     <ul class="references">

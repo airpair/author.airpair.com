@@ -10,24 +10,28 @@
 
   <article class="blogpost">
 
-  {{#with post}}
+{{#with post}}
 
     <h1 class="entry-title" itemprop="headline">{{ title }}</h1>
 
+  {{#if assetUrl }}
+    <p class="feature"><img src="{{ assetUrl }}" /></p>
+  {{/if}}
+
     <div class="body" no-compile>{{{ html }}}</div>
 
-    {{#if references}}
+  {{#if references}}
     <div id="references" no-compile>
       <h4>References</h4>
       <ul class="references">
         {{#each references}}<li>{{{this}}}</li>{{/each}}
       </ul>
     </div>
-    {{/if}}
+  {{/if}}
 
   {{/with}}
 
-  </article>
+</article>
 
 
   <footer class="blogpost">

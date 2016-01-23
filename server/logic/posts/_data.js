@@ -1,7 +1,7 @@
 var views = {
   edit:         '_id title tags assetUrl by.userId submitted published updated md slug stats todo repo', //github.repoInfo  created published submitted tags assetUrl  synced
   details:      '_id title tags assetUrl by slug submitted published ',
-  submit:       '_id title slug submission',
+  submit:       '_id title tags by slug submission',
   previewable:  '_id title tags assetUrl by body references toc', // created published submitted
   reviewable:   '_id title tags assetUrl by body references toc review stats', // created published submitted
   viewable:     ''
@@ -44,7 +44,7 @@ module.exports = new LogicDataHelper(views,
       select.edit(assign(chain(r,'$activity.stats','todo'), { md: {live:r.md,head:r.headMD} })),
 
     submit: r =>
-      select.submit(assign(r, { slug: r.slug || PostsUtil.defaultSlug(r) })),
+      select.submit(assign(chain(r, inflate.tags), { slug: r.slug || PostsUtil.defaultSlug(r) })),
 
     previewable: r => {
       var {markdown,references} = PostsUtil.extractReferences(r.headMD)
