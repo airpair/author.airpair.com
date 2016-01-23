@@ -26,7 +26,7 @@
     "meanair-auth": "0.6.3",
     "meanair-model": "0.6.4",
     "meanair-server": "0.6.3",
-    "meanair-shared": "0.6.2",
+    "meanair-shared": "0.6.3",
     "passport": "0.3.0"
   },
   "devDependencies": {

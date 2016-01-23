@@ -8,7 +8,6 @@ var views = {
 }
 
 
-var marked              = require('marked')
 var toc                 = require('./lib/toc')()
 var PostsUtil           = require('../../../shared/posts')
 

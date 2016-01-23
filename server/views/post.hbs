@@ -1,1 +1,38 @@
-<h1>Post page coming shorlty</h1>
+<post>
+
+
+  <header class="blogpost">
+    <nav>
+
+    </nav>
+  </header>
+
+
+  <article class="blogpost">
+
+  {{#with post}}
+
+    <h1 class="entry-title" itemprop="headline">{{ title }}</h1>
+
+    <div class="body" no-compile>{{{ html }}}</div>
+
+    {{#if references}}
+    <div id="references" no-compile>
+      <h4>References</h4>
+      <ul class="references">
+        {{#each references}}<li>{{{this}}}</li>{{/each}}
+      </ul>
+    </div>
+    {{/if}}
+
+  {{/with}}
+
+  </article>
+
+
+  <footer class="blogpost">
+
+  </footer>
+
+
+</post>

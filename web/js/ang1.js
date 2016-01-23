@@ -5,18 +5,21 @@ require('../components/angular/angular.js')
 require('../components/angular-route/angular-route.js')
 require('../components/angular-load/angular-load.js')
 
+require('../static/js/ui-bootstrap-custom-tpls-0.14.3.js')
+require('../static/js/moment-timezone-with-data-2010-2020.js')
+require('../static/js/prism-custom.js')
+
+var marked    = require('../static/js/marked-0.3.5.js')
+
 require('../components/ace-builds/src-min-noconflict/ace.js');
 require('../components/angular-ui-ace/ui-ace.js');
 require('../components/ace-builds/src-min-noconflict/ext-language_tools.js');
 require('../components/ace-builds/src-min-noconflict/mode-markdown.js');
 require('../components/ace-builds/src-min-noconflict/theme-dawn.js');
 
-require('../static/js/ui-bootstrap-custom-tpls-0.14.3.js')
-require('../static/js/moment-timezone-with-data-2010-2020.js')
-
 require('./.lib/ang.v1/directives/_index.js')
 require('./.lib/ang.v1/services/_index.js')
-require('./.lib/ang.v1/util/filters.js')
+require('./.lib/ang.v1/util/_index.js')
 
 require('./ang.v1/services/_index.js')
 
@@ -32,12 +35,12 @@ angular.module("Author", [
   'ui.ace',
 
   //-- App common
-  'AirPair.Filters',
   'AirPair.Directives',
   'AirPair.Services',
-  'Author.Services',
+  'AirPair.Util',
 
   //-- App modules (namespaces)
+  'Author.Services',
   'Author.Library',
   'Author.Edit',
   'Author.Activity',
@@ -50,7 +53,11 @@ angular.module("Author", [
 })
 
 
-.factory('$postsUtil', () => require('../../shared/posts.js'))
+.factory('$postsUtil', () => Object.assign({marked},
+  require('../../shared/posts.js'))
+)
+
+
 .factory('Shared', () => Object.assign(_,
     //-- Darn hack not sure what's going on
     require('../static/js/.lib/object.js'),

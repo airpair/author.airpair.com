@@ -4,7 +4,7 @@
 //! license : MIT
 //! github.com/moment/moment-timezone
 
-window.moment = require("../../../node_modules/meanair-server/node_modules/moment/moment.js")
+window.moment = require("../../components/moment/moment.js")
 initTZ(moment)
 
 function initTZ(moment) {

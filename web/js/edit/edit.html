@@ -8,8 +8,6 @@
   </div>
 
   <div ng-if="data" class="statusbar {{saved ? 'saved': 'unsaved' }}">
-
-
     <span class="status">
       <button class="btn btn-sm btn-save" ng-click="save()" ng-if="!saved">Save</button>
       <span class="saved" ng-if="saved">saved</span>
@@ -20,65 +18,72 @@
       </span>
       <span class="unsaved" ng-if="submitted && !syncedMD">HEAD not synced</span>
     </span>
+    <span class="modes">
+      preview &nbsp;<a class="{{previewMode=='off'?'current':''}}" ng-click="previewToggle('off')">OFF</a> |
+      <a class="{{previewMode=='mobile-portrait'?'current':''}}" ng-click="previewToggle('mobile-portrait')">MP</a> |
+      <a class="{{previewMode=='mobile-landscape'?'current':''}}" ng-click="previewToggle('mobile-landscape')">ML</a> |
+      <a class="{{previewMode=='tablet-portrait'?'current':''}}" ng-click="previewToggle('tablet-portrait')">TP</a> |
+      <!-- <a class="{{previewMode=='off'?'tablet-landscape':''}}" ng-click="previewToggle('tablet-landscape')">TL</a> | -->
+      <a class="{{previewMode=='desktop-small'?'current':''}}" ng-click="previewToggle('desktop-small')">DS</a> |
+      <a class="{{previewMode=='desktop-large'?'current':''}}" ng-click="previewToggle('desktop-large')">DL</a> |
+      <a class="{{previewMode=='desktop-xl'?'current':''}}" ng-click="previewToggle('desktop-xl')">DXL</a>
+    </span>
   </div>
 
   <div ng-if="data" class="editor-wrap">
 
     <section ng-if="aceLoaded" id="editor">
-      <div id="aceeditor" ui-ace="{
+      <div id="aceeditor" ng-model="data.md" ui-ace="{
         useWrapMode:true,
         theme:'dawn',
         mode:'markdown',
         onLoad: aceLoaded,
         onChange: aceChanged,
         onBlur: aceChanged
-      }"
-      ng-model="data.md"
-      >
+      }">
     </section>
 
-    <section id="post" preview="post">
+    <section class="preview s{{previewW}}" ng-if="preview && previewMode != 'off'">
+      <div id="post" preview></div>
+      <div id="preview-meta">
+        <div>
+          {{previewMode}} <span>{{previewW}}px</span>
+        </div>
+      </div>
     </section>
 
   </div>
 
-<!--   <a class="btn-preview" ng-href="{{previewLink(_id)}}" target="_blank"
-    ng-disabled="!(saved&&previewable)">Preview</a>
+<!--<a class="btn-preview" ng-href="{{previewLink(_id)}}" target="_blank"
+    ng-disabled="!(saved&&previewable)">Preview</a> -->
 
- -->
-
-<!--   <button class="btn-submit"
+<!--<button class="btn-submit"
     ng-if="toSubmit" ng-click="redirectSubmit(_id)"
     ng-disabled="!saved">Submit</button> -->
 
-<!--   <a class="btn-pr" ng-if="!isAuthor" href="https://github.com/airpair/{{slug}}/compare/edit...{{repo}}:edit" target="_blank"
-      ng-disabled="!saved || syncedMD">Create PR</a>
- -->
+<!--<a class="btn-pr" ng-if="!isAuthor" href="https://github.com/airpair/{{slug}}/compare/edit...{{repo}}:edit" target="_blank"
+      ng-disabled="!saved || syncedMD">Create PR</a>-->
 
-<!--   <input type="button" class="btn-sync" ng-click="sync()" ng-if="submitted && isAuthor" ng-disabled="!saved || syncedMD" value="Sync" />
- -->
+<!--<input type="button" class="btn-sync" ng-click="sync()" ng-if="submitted && isAuthor" ng-disabled="!saved || syncedMD" value="Sync" />-->
 
-<!--   <button class="btn-publish"
+<!--<button class="btn-publish"
     ng-if="toPublish" ng-click="redirectPublish(_id)"
-    ng-disabled="!saved">Publish</button>
+    ng-disabled="!saved">Publish</button>-->
 
- -->
-<!--   <div class="commitmsg" ng-if="submitted">
-    <input type="text" ng-disabled="saved" ng-model="data.commitMessage" placeholder="Enter a commit message" class="form-control" />
-  </div>
- -->
- <!-- && wordcountTooLow -->
-  <!-- <label ng-if="!(post.submitted || post.published)">
-    See the <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown guide</a> & our <a href="/authoring-faq" target="_blank">Authoring FAQ</a>
-  </label> -->
+<!--<div class="commitmsg" ng-if="submitted">
+    <input type="text" ng-disabled="saved" ng-model="data.commitMessage" placeholder="Enter a commit message" class="form-control" /></div>-->
+
+<!-- && wordcountTooLow -->
+<!-- <label ng-if="!(post.submitted || post.published)">
+  See the <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown guide</a> & our <a href="/authoring-faq" target="_blank">Authoring FAQ</a></label> -->
 
 
 </section>
 
 <footer ng-if="post" class="edit">
 
-    <p class="tip">
-      <todo-helper todo="todo" md="data.md" id="_id"></todo-helper>
-    </p>
+  <p class="tip">
+    <todo-helper todo="todo" md="data.md" id="_id"></todo-helper>
+  </p>
 
 </footer>

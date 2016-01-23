@@ -1,3 +1,5 @@
+
+
 var shared = {
 
   status({submitted,published}) {
@@ -80,6 +82,24 @@ var shared = {
     })
 
     return { markdown, references }
+  },
+
+
+  markupReferences(references, marked) {
+    return _.map(_.keys(references), idx =>
+      `<cite id="r${idx}">${idx}. ${marked(references[idx])}</cite>`.replace(/<\/?p>/g,''))
+  },
+
+
+  getPreview(post, marked) {
+    var preview = shared.extractReferences(post.md)
+    preview.title = post.title
+    preview.body = marked(post.md)
+    // preview.wordcount = shared.wordcount(md)
+    if (preview.references)
+      preview.markedUpReferences = shared.markupReferences(preview.references, marked)
+
+    return preview
   }
 
 

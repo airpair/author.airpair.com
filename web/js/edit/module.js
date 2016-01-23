@@ -14,8 +14,6 @@ angular.module("Author.Edit", [])
 })
 
 
-
-
 .directive('editHeader', (Shared, $postsUtil) => ({
   template: require('./header.html'),
   scope: { post: '=post', step: '=step', editing: '=editing' },
@@ -24,8 +22,6 @@ angular.module("Author.Edit", [])
     if ($scope.editing === undefined) $scope.editing = false
   }
 }))
-
-
 
 
 .directive('todoHelper', Shared => ({
@@ -37,6 +33,16 @@ angular.module("Author.Edit", [])
   }
 }))
 
+
+.directive('preview', (Shared, $postsUtil, APWindow) => ({
+  template: require('./preview.html'),
+  controller($scope, $timeout) {
+    $scope.$watch('preview.body', x => {
+      console.log('previewupdate.d')
+      $timeout(function() { APWindow.codeblocks.highlight({}) }, 10)
+    })
+  }
+}))
 
 
 .controller('edit:info', ($scope, $routeParams, $location, StaticData, API) => {
@@ -130,13 +136,15 @@ angular.module("Author.Edit", [])
       $timeout.cancel(timer)
       timer = null
     }
+    // console.log('$scope.data.md', $scope.data.md)
     refreshSaved()
-  //   if ($scope.saved && $scope.preview.body) return
-  //   $scope.data.md = md
-  //   PostsUtil.getPreview(md, (e, preview) => {
-  //     if (e) throw e
-  //     $scope.preview = preview
-  //   })
+    $scope.preview =
+      $postsUtil.getPreview($scope.data, $postsUtil.marked)
+
+    // console.log('$scope.data.md2', $scope.data.md, $scope.preview)
+    if ($scope.saved && $scope.preview.body) return
+
+    // $scope.data.md = md
   }
 
   $scope.aceChanged = function(e) {
@@ -158,7 +166,7 @@ angular.module("Author.Edit", [])
     if (r.published && !r.submitted && $scope.isAuthor)
       window.location = `/submit/${_id}`
 
-    $scope.data = { _id, commitMessage: '' }
+    $scope.data = { _id, title: r.title, commitMessage: '' }
     if (r.md.live == "new")
       $scope.data.md = StaticData.defaultPostMarkdown
     else
@@ -182,6 +190,9 @@ angular.module("Author.Edit", [])
       $scope.previewable && $scope.saved ? `https://www.airpair.com/posts/preview/${id}` : ''
     $scope.redirectSubmit = id => window.location = `/submit/${id}`
     $scope.redirectPublish = id => window.location = `/publish/${id}`
+
+    if (!$scope.previewMode) $scope.previewToggle('mobile-portrait')
+    if (screen.width > 640) $timeout(refreshPreview, 1200)
   }
 
   API(`/posts/markdown/${_id}`, setScope, e => {
@@ -205,6 +216,12 @@ angular.module("Author.Edit", [])
   $scope.sync = () => $scope.published
     ? alert("Ask an editor to sync your post")
     : API(`/posts/sync/${_id}`, {_id}, setScope)
+
+
+  $scope.previewToggle = mode => {
+    $scope.previewMode = mode
+    $scope.previewW = StaticData.viewMode[mode]
+  }
 
 })
 
